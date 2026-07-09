@@ -684,6 +684,11 @@ footer p {
     padding: 25px 0;
 }
 
+@media (max-width: 992px) {
+    .sobre-content.reverse {
+        flex-direction: column;
+    }
+}
 
 /* Carousel Styles */
 .carousel-container {
