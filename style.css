@@ -1,10 +1,17 @@
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 100px; /* Ajuste conforme altura do header */
+}
 :root{
-    --primary:#FFC107;
-    --secondary:#1E6F3D;
-    --dark:#0B3A2E;
-    --black:#041D11;
-    --light:#ECECEC;
-    --white:#FFF;
+    --primary: #2E7D32;
+    --secondary: #FFC107;
+    --dark: #20231f;
+    --black: #081C15;
+    --light: #F4F6F5;
+    --white: #FFFFFF;
 }
 
 * {
@@ -20,14 +27,13 @@ body {
     overflow-x: hidden;
 }
 
-.container {
+.container{
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Header */
 header {
     padding: 10px 0;
     background-color: #063f0f;
@@ -70,17 +76,15 @@ header.scrolled .logo {
     font-weight: 600;
     font-size: 16px;
     transition: color 0.3s;
-    position: relative; /* Required for the absolute positioning of the underline */
-    padding: 5px 0; /* Add padding to create space for the underline */
+    position: relative;
+    padding: 5px 0;
 }
 
-/* Estilo para os ícones do menu */
 .nav-menu a i {
     margin-right: 8px;
-    font-size: 14px; /* Tamanho um pouco menor que o texto */
+    font-size: 14px;
 }
 
-/* Add underline animation effect to menu items */
 .nav-menu a::after {
     content: '';
     position: absolute;
@@ -101,20 +105,19 @@ header.scrolled .logo {
     color: var(--primary);
 }
 
-/* Mobile Menu Button - Fix display issue */
+/* Mobile Menu Button */
 .mobile-menu-btn {
-    display: none; /* Hidden by default for desktop */
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
     color: var(--white);
     font-size: 24px;
     position: relative;
-    z-index: 101; /* Ensure it's above the menu */
+    z-index: 101;
     transition: all 0.3s ease;
     width: 40px;
     height: 40px;
-    /* Remove the display: flex from here - it's overriding display: none */
 }
 
 .mobile-menu-btn i {
@@ -123,11 +126,10 @@ header.scrolled .logo {
 }
 
 .mobile-menu-btn i.fa-times {
-    color: var(--primary); /* Make the X icon colored for better visibility */
-    transform: rotate(90deg); /* Add rotation animation */
+    color: var(--primary);
+    transform: rotate(90deg);
     animation: rotateIn 0.3s ease forwards;
 }
-
 /* ================= HERO ================= */
 
 .hero{
@@ -573,42 +575,26 @@ footer p {
 }
 
 /* Responsive */
+/* ✅ Mobile layout (até 992px) */
 @media (max-width: 992px) {
-    .sobre-content.reverse {
-        flex-direction: column-reverse;
-    }
 
+  /* Sobre e Equipe: remove o reverse no mobile pra ficar sempre texto primeiro */
+  .sobre-content {
+    flex-direction: column;
+  }
 
-    .sobre-img, .sobre-text {
-        width: 100%;
-    }
-    
-    /* Estrutura section mobile layout - text first */
-    .estrutura .sobre-content .sobre-img {
-        order: 2;
-    }
-    
-    .estrutura .sobre-content .sobre-text {
-        order: 1;
-    }
+  .sobre-content.reverse {
+    flex-direction: column; /* sobrescreve o reverse no mobile */
+  }
 
-    /* Section mobile layouts - text first for all sections */
-    .estrutura .sobre-content .sobre-img,
-    .equipe .sobre-content .sobre-img,
-    .resultados .sobre-content .sobre-img {
-        order: 2;
-    }
-    
-    .estrutura .sobre-content .sobre-text,
-    .equipe .sobre-content .sobre-text,
-    .resultados .sobre-content .sobre-text {
-        order: 1;
-    }
-    
-    .estrutura .carousel-container {
-        min-height: auto;
-        aspect-ratio: auto;
-    }
+  .sobre-img,
+  .sobre-text {
+    width: 100%;
+  }
+
+  /* Garantia de ordem */
+  .sobre-img { order: 2; }
+  .sobre-text { order: 1; }
 }
 
 /* Whatsapp Float Button */
