@@ -220,3 +220,22 @@ function setupCarousels() {
 }
 
 document.addEventListener('DOMContentLoaded', setupCarousels);
+
+function calcularEnergia() {
+
+    const potencia = Number(document.getElementById("potencia").value);
+    const quantidade = Number(document.getElementById("quantidade").value);
+
+    if (!potencia || !quantidade) {
+        alert("Preencha todos os campos.");
+        return;
+    }
+
+    const energia = (potencia * quantidade * 6 * 30 * 0.75) / 1000;
+
+    document.getElementById("resultado").innerHTML =
+        energia.toLocaleString("pt-BR", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        }) + " kWh/mês";
+}

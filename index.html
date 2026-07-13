@@ -73,6 +73,7 @@
                     <li><a href="#estrutura"><i class="fas fa-bullseye"></i>Missão</a></li>
                     <li><a href="#equipe"><i class="fas fa-users"></i>Equipe</a></li>
                     <li><a href="#sistema"><i class="fas fa-users"></i>Sistema</a></li>
+                    <li><a href="#simulador"><i class="fas fa-calculator"></i>Simulação</a></li>
                     <li><a href="#contato"><i class="fas fa-envelope"></i>Contato</a></li>
                 </ul>
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -296,6 +297,38 @@
                 </p>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Simulador -->
+<section class="simulador" id="simulador">
+    <div class="container">
+
+        <div class="simulador-box">
+            <h2>Simule sua Geração de Energia</h2>
+            <p>Informe a potência do painel e a quantidade de painéis para estimar a geração mensal.</p>
+
+            <div class="form-group">
+                <label>Potência do Painel (W)</label>
+                <input type="number" id="potencia" >
+            </div>
+
+            <div class="form-group">
+                <label>Quantidade de Painéis</label>
+                <input type="number" id="quantidade" >
+            </div>
+
+            <button class="btn" onclick="calcularEnergia()">
+                Calcular
+            </button>
+
+            <div class="resultado">
+                <h3>Geração Mensal</h3>
+                <span id="resultado">0 kWh/mês</span>
+            </div>
+
+        </div>
+
     </div>
 </section>
 
