@@ -923,3 +923,82 @@ footer p {
     font-size:38px;
     font-weight:700;
 }
+
+/* ================= MENU MOBILE ================= */
+
+.menu-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:998;
+}
+
+.menu-backdrop.active{
+    opacity:1;
+    visibility:visible;
+}
+
+@media (max-width:768px){
+
+    .mobile-menu-btn{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .nav-menu{
+
+        position:fixed;
+
+        top:0;
+        right:-100%;
+
+        width:280px;
+        height:100vh;
+
+        background:#063f0f;
+
+        display:flex;
+        flex-direction:column;
+
+        align-items:flex-start;
+        justify-content:flex-start;
+
+        gap:0;
+
+        padding:90px 0 30px;
+
+        transition:.35s ease;
+
+        z-index:999;
+    }
+
+    .nav-menu.active{
+        right:0;
+    }
+
+    .nav-menu li{
+        width:100%;
+        list-style:none;
+    }
+
+    .nav-menu a{
+
+        display:flex;
+        align-items:center;
+
+        width:100%;
+
+        padding:18px 25px;
+
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .nav-menu a i{
+        width:22px;
+        margin-right:12px;
+    }
+}
