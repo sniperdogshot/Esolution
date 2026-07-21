@@ -114,7 +114,7 @@
                         <i class="fas fa-solar-panel"></i>
                         <div>
                             <h3>Economia</h3>
-                            <p>Economia de até 75%</p>
+                            <p>Economia de até 80%</p>
                         </div>
                     </div>
 
@@ -300,31 +300,69 @@
     </div>
 </section>
 
-<!-- Simulador -->
 <section class="simulador" id="simulador">
     <div class="container">
 
-        <div class="simulador-box">
-            <h2>Simule sua Geração de Energia</h2>
-            <p>Informe a potência do painel e a quantidade de painéis para estimar a geração mensal.</p>
+        <div class="simulador-grid">
 
-            <div class="form-group">
-                <label>Potência do Painel (W)</label>
-                <input type="number" id="potencia" >
+            <div class="simulador-box">
+
+                <h2>Simule sua Economia</h2>
+
+                <p>
+                    Descubra quanto você pode economizar com energia solar.
+                </p>
+
+                <div class="form-group">
+                    <label>Potência do painel (W)</label>
+                    <input type="number" id="potencia">
+                </div>
+
+                <div class="form-group">
+                    <label>Quantidade de painéis</label>
+                    <input type="number" id="quantidade">
+                </div>
+
+                <div class="form-group">
+                    <label>Quanto você paga de energia por mês?</label>
+                    <input type="number" id="conta">
+                </div>
+
+                <button class="btn" onclick="calcularEnergia()">
+                    Calcular Economia
+                </button>
+
             </div>
 
-            <div class="form-group">
-                <label>Quantidade de Painéis</label>
-                <input type="number" id="quantidade" >
-            </div>
+            <div class="economia-box">
 
-            <button class="btn" onclick="calcularEnergia()">
-                Calcular
-            </button>
+                <h2>Resultado</h2>
 
-            <div class="resultado">
-                <h3>Geração Mensal</h3>
-                <span id="resultado">0 kWh/mês</span>
+                <div class="economia-item">
+                    <small>Geração Mensal</small>
+                    <h3 id="resultado">0 kWh</h3>
+                </div>
+
+                <div class="economia-item">
+                    <small>Conta Atual</small>
+                    <h3 id="contaAtual">R$ 0,00</h3>
+                </div>
+
+                <div class="economia-item destaque">
+                    <small>Nova Conta</small>
+                    <h3 id="novaConta">R$ 0,00</h3>
+                </div>
+
+                <div class="economia-item">
+                    <small>Economia Mensal</small>
+                    <h3 id="economiaMensal">R$ 0,00</h3>
+                </div>
+
+                <div class="economia-item">
+                    <small>Economia Anual</small>
+                    <h3 id="economiaAnual">R$ 0,00</h3>
+                </div>
+
             </div>
 
         </div>
@@ -418,7 +456,7 @@
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juliano@esolut.eng.br" target="_blank"><i 
                     class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; Esolution Engenharia</p>
+            <p>&copy; Esolution Engenharia - Todos os direitos reservados.</p>
         </div>
     </footer>
 

@@ -37,20 +37,6 @@ backdrop.addEventListener('click', () => {
   icon.classList.add('fa-bars');
 });
 
-// Close menu when clicking on a nav link
-document.querySelectorAll('.nav-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    navMenu.classList.remove('active');
-    backdrop.classList.remove('active');
-    document.body.style.overflow = '';
-    mobileMenuBtn.classList.remove('active');
-
-    const icon = mobileMenuBtn.querySelector('i');
-    icon.classList.remove('fa-times');
-    icon.classList.add('fa-bars');
-  });
-});
-
 // Header Scroll Effect
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
@@ -58,26 +44,44 @@ window.addEventListener('scroll', () => {
   else header.classList.remove('scrolled');
 });
 
-// Smooth Scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const targetId = this.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
+// Navegação do menu
+document.querySelectorAll('.nav-menu a').forEach(link => {
 
-    if (targetElement) {
-      // Close mobile menu if open
-      navMenu.classList.remove('active');
-      mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-      mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+    link.addEventListener('click', function (e) {
 
-      window.scrollTo({
-        top: targetElement.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  });
+        e.preventDefault();
+
+        const target = document.querySelector(this.getAttribute('href'));
+
+        if (!target) return;
+
+        // Fecha o menu
+        navMenu.classList.remove('active');
+        backdrop.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+        document.body.style.overflow = '';
+
+        // Volta o ícone
+        const icon = mobileMenuBtn.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+
+        // Aguarda a animação do menu terminar
+        setTimeout(() => {
+
+            const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
+
+            window.scrollTo({
+                top: y,
+                behavior: 'smooth'
+            });
+
+        }, 300);
+
+    });
+
 });
+
 
 // Animation on Scroll
 const fadeElems = document.querySelectorAll('.fade-in');
@@ -221,21 +225,47 @@ function setupCarousels() {
 
 document.addEventListener('DOMContentLoaded', setupCarousels);
 
+
 function calcularEnergia() {
 
     const potencia = Number(document.getElementById("potencia").value);
     const quantidade = Number(document.getElementById("quantidade").value);
+    const conta = Number(document.getElementById("conta").value);
 
-    if (!potencia || !quantidade) {
-        alert("Preencha todos os campos.");
-        return;
-    }
-
-    const energia = (potencia * quantidade * 6 * 30 * 0.75) / 1000;
+    // Geração de energia 
+    const geracao = (potencia * quantidade * 6 * 30 * 0.75) / 1000;
 
     document.getElementById("resultado").innerHTML =
-        energia.toLocaleString("pt-BR", {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 2
-        }) + " kWh/mês";
+        geracao.toFixed(0) + " kWh/mês";
+
+    // Economia (80%)
+    const percentualEconomia = 0.80;
+
+    const economiaMensal = conta * percentualEconomia;
+    const novaConta = conta - economiaMensal;
+    const economiaAnual = economiaMensal * 12;
+
+    document.getElementById("contaAtual").innerHTML =
+        conta.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    document.getElementById("novaConta").innerHTML =
+        novaConta.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    document.getElementById("economiaMensal").innerHTML =
+        economiaMensal.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    document.getElementById("economiaAnual").innerHTML =
+        economiaAnual.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
 }

@@ -864,34 +864,48 @@ footer p {
     aspect-ratio: 4 / 3;
 }
 
+/* ================= SIMULADOR ================= */
+
 .simulador{
-    padding:30px 0;
+    padding:60px 0;
     background:var(--dark);
 }
 
-.simulador-box{
-    max-width:600px;
-    margin:auto;
-    background:#0d4737;
-    padding:40px;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 15px 40px rgba(0,0,0,.3);
+.simulador-grid{
+    display:flex;
+    gap:35px;
+    align-items:stretch;
+    flex-wrap:wrap;
 }
 
-.simulador h2{
+.simulador-box,
+.economia-box{
+
+    flex:1;
+    min-width:340px;
+
+    background:#0d4737;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.30);
+}
+
+.simulador-box h2,
+.economia-box h2{
     color:var(--primary);
     margin-bottom:15px;
 }
 
-.simulador p{
+.simulador-box p{
     color:#ddd;
     margin-bottom:30px;
 }
 
 .form-group{
-    margin-bottom:20px;
-    text-align:left;
+    margin-bottom:22px;
 }
 
 .form-group label{
@@ -902,26 +916,111 @@ footer p {
 }
 
 .form-group input{
+
     width:100%;
     padding:15px;
+
     border:none;
     border-radius:10px;
+
+    background:#fff;
+
     font-size:16px;
 }
 
-.resultado{
-    margin-top:35px;
+.form-group input:focus{
+
+    outline:none;
+
+    border:2px solid var(--primary);
+
 }
 
-.resultado h3{
+.economia-item{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.12);
+
+}
+
+.economia-item:last-child{
+    border:none;
+}
+
+.economia-item small{
+
+    color:#ccc;
+    font-size:15px;
+
+}
+
+.economia-item h3{
+
     color:#fff;
-    margin-bottom:10px;
+    font-size:28px;
+
+}
+
+.destaque h3{
+    color:var(--secondary);
 }
 
 #resultado{
+
     color:var(--primary);
-    font-size:38px;
-    font-weight:700;
+    font-size:34px;
+
+}
+
+#economiaMensal{
+    color:#31d86b;
+}
+
+#economiaAnual{
+    color:#31d86b;
+}
+
+.simulador .btn{
+    width:100%;
+    margin-top:10px;
+}
+
+/* Responsivo */
+
+@media(max-width:900px){
+
+    .simulador-grid{
+
+        flex-direction:column;
+
+    }
+
+    .simulador-box,
+    .economia-box{
+
+        min-width:100%;
+
+    }
+
+    .economia-item{
+
+        flex-direction:column;
+        align-items:flex-start;
+        gap:8px;
+
+    }
+
+    .economia-item h3{
+
+        font-size:24px;
+
+    }
+
 }
 
 /* ================= MENU MOBILE ================= */
