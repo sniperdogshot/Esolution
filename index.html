@@ -310,57 +310,34 @@
                 <h2>Simule sua Economia</h2>
 
                 <p>
-                    Descubra quanto você pode economizar com energia solar.
+                    Informe o seu consumo médio mensal de energia.
                 </p>
 
                 <div class="form-group">
-                    <label>Potência do painel (W)</label>
-                    <input type="number" id="potencia">
+                    <label>Consumo Mensal (kWh)</label>
+                    <input
+                        type="number"
+                        id="consumo"
+                        placeholder="Ex.: 750">
                 </div>
 
-                <div class="form-group">
-                    <label>Quantidade de painéis</label>
-                    <input type="number" id="quantidade">
-                </div>
-
-                <div class="form-group">
-                    <label>Quanto você paga de energia por mês?</label>
-                    <input type="number" id="conta">
-                </div>
-
-                <button class="btn" onclick="calcularEnergia()">
-                    Calcular Economia
+                <button class="btn" onclick="calcularEconomia()">
+                    Calcular
                 </button>
 
-            </div>
-
-            <div class="economia-box">
-
-                <h2>Resultado</h2>
-
                 <div class="economia-item">
-                    <small>Geração Mensal</small>
+                    <small>Consumo Anual</small>
                     <h3 id="resultado">0 kWh</h3>
                 </div>
 
                 <div class="economia-item">
-                    <small>Conta Atual</small>
-                    <h3 id="contaAtual">R$ 0,00</h3>
-                </div>
-
-                <div class="economia-item destaque">
-                    <small>Nova Conta</small>
+                    <small>Nova Conta Mensal</small>
                     <h3 id="novaConta">R$ 0,00</h3>
                 </div>
 
-                <div class="economia-item">
-                    <small>Economia Mensal</small>
-                    <h3 id="economiaMensal">R$ 0,00</h3>
-                </div>
-
-                <div class="economia-item">
-                    <small>Economia Anual</small>
-                    <h3 id="economiaAnual">R$ 0,00</h3>
+                <div class="economia-item destaque">
+                    <small>Nova Conta Anual</small>
+                    <h3 id="novaContaAnual">R$ 0,00</h3>
                 </div>
 
             </div>

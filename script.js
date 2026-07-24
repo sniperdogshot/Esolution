@@ -226,46 +226,36 @@ function setupCarousels() {
 document.addEventListener('DOMContentLoaded', setupCarousels);
 
 
-function calcularEnergia() {
+function calcularEconomia() {
 
-    const potencia = Number(document.getElementById("potencia").value);
-    const quantidade = Number(document.getElementById("quantidade").value);
-    const conta = Number(document.getElementById("conta").value);
+const consumoMensal = parseFloat(document.getElementById("consumo").value);
 
-    // Geração de energia 
-    const geracao = (potencia * quantidade * 6 * 30 * 0.75) / 1000;
+const consumoAnual = consumoMensal * 12;
 
-    document.getElementById("resultado").innerHTML =
-        geracao.toFixed(0) + " kWh/mês";
+const K6 = 0.3420;
+const K7 = 0.6428;
+const K8 = 0.9848;
+const GD = 0.35;
 
-    // Economia (80%)
-    const percentualEconomia = 0.80;
+const novaContaAnual =
+    consumoAnual * GD * K8 +
+    consumoAnual * (1 - GD) * K6 +
+    consumoAnual * (1 - GD) * K7 * GD;
 
-    const economiaMensal = conta * percentualEconomia;
-    const novaConta = conta - economiaMensal;
-    const economiaAnual = economiaMensal * 12;
+const novaContaMensal = novaContaAnual / 12;
 
-    document.getElementById("contaAtual").innerHTML =
-        conta.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+document.getElementById("resultado").innerHTML =
+    consumoAnual.toLocaleString("pt-BR") + " kWh";
 
-    document.getElementById("novaConta").innerHTML =
-        novaConta.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+document.getElementById("novaConta").innerHTML =
+    novaContaMensal.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
 
-    document.getElementById("economiaMensal").innerHTML =
-        economiaMensal.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
-
-    document.getElementById("economiaAnual").innerHTML =
-        economiaAnual.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+document.getElementById("novaContaAnual").innerHTML =
+    novaContaAnual.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
 }
