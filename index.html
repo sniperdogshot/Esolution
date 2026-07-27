@@ -310,23 +310,23 @@
                 <h2>Simule sua Economia</h2>
 
                 <p>
-                    Informe o seu consumo médio mensal de energia.
+                    Informe o valor médio da sua conta de energia e veja uma estimativa de economia com energia solar.
                 </p>
 
                 <div class="form-group">
-                    <label>Consumo Mensal (kWh)</label>
+                    <label>Valor da sua conta mensal</label>
                     <input
                         type="number"
                         id="consumo"
-                        placeholder="Ex.: 750">
+                        oninput="habilitarBotao()">
                 </div>
 
-                <button class="btn" onclick="calcularEconomia()">
-                    Calcular
+                <button class="btn" onclick="calcularEconomia()" id="btnCalcular" disabled>
+                    Economia Estimada 1ºano
                 </button>
-
+                
                 <div class="economia-item">
-                    <small>Consumo Anual</small>
+                    <small>Consumo estimado (kWh)</small>
                     <h3 id="resultado">0 kWh</h3>
                 </div>
 

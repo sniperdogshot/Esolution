@@ -225,37 +225,71 @@ function setupCarousels() {
 
 document.addEventListener('DOMContentLoaded', setupCarousels);
 
+function habilitarBotao() {
+    const valor = document.getElementById("consumo").value;
+    const botao = document.getElementById("btnCalcular");
+
+    botao.disabled = valor.trim() === "" || parseFloat(valor) <= 0;
+}
 
 function calcularEconomia() {
 
-const consumoMensal = parseFloat(document.getElementById("consumo").value);
+    const valorContaMensal = parseFloat(document.getElementById("consumo").value);
 
-const consumoAnual = consumoMensal * 12;
+    const K6 = 0.3420;
+    const K7 = 0.6428;
+    const K8 = 0.9848;
+    const GD = 0.35;
 
-const K6 = 0.3420;
-const K7 = 0.6428;
-const K8 = 0.9848;
-const GD = 0.35;
+    // Descobre o consumo mensal em kWh
+    const consumoMensal = valorContaMensal / K8;
 
-const novaContaAnual =
-    consumoAnual * GD * K8 +
-    consumoAnual * (1 - GD) * K6 +
-    consumoAnual * (1 - GD) * K7 * GD;
+    // Consumo anual
+    const consumoAnual = consumoMensal * 12;
 
-const novaContaMensal = novaContaAnual / 12;
+    // Valor após a instalação (anual)
+    const novaContaAnual =
+        consumoAnual * GD * K8 +
+        consumoAnual * (1 - GD) * K6 +
+        consumoAnual * (1 - GD) * K7 * GD;
 
-document.getElementById("resultado").innerHTML =
-    consumoAnual.toLocaleString("pt-BR") + " kWh";
+    // Valor após a instalação (mensal)
+    const novaContaMensal = novaContaAnual / 12;
 
-document.getElementById("novaConta").innerHTML =
-    novaContaMensal.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    });
+    // Economia = valor calculado
+    const economiaMensal = novaContaMensal;
+    const economiaAnual = novaContaAnual;
 
-document.getElementById("novaContaAnual").innerHTML =
-    novaContaAnual.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    });
+    // Nova conta = conta antiga - economia
+    const novaContaMensalFinal = valorContaMensal - economiaMensal;
+    const novaContaAnualFinal = (valorContaMensal * 12) - economiaAnual;
+
+    document.getElementById("resultado").innerHTML =
+        consumoMensal.toFixed(0) + " kWh/mês";
+
+    // Exibe a nova conta (R$ 215,01)
+    document.getElementById("novaConta").innerHTML =
+        novaContaMensalFinal.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    document.getElementById("novaContaAnual").innerHTML =
+        novaContaAnualFinal.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    // Exibe a economia (R$ 523,56)
+    document.getElementById("economiaMensal").innerHTML =
+        economiaMensal.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
+
+    document.getElementById("economiaAnual").innerHTML =
+        economiaAnual.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
 }

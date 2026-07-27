@@ -1087,21 +1087,6 @@ footer p {
 
 /* ================= MENU MOBILE ================= */
 
-.menu-backdrop{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    opacity:0;
-    visibility:hidden;
-    transition:.3s;
-    z-index:998;
-}
-
-.menu-backdrop.active{
-    opacity:1;
-    visibility:visible;
-}
-
 @media (max-width:768px){
 
     .mobile-menu-btn{
@@ -1111,33 +1096,25 @@ footer p {
     }
 
     .nav-menu{
-
         position:fixed;
-
         top:0;
-
+        right:-300px; /* ✅ escondido fora da tela */
         width:280px;
         height:100vh;
-
         background:#063f0f;
-
         display:flex;
         flex-direction:column;
-
         align-items:flex-start;
         justify-content:flex-start;
-
         gap:0;
-
         padding:50px 0 30px;
-
         transition:.35s ease;
-
         z-index:999;
+        overflow-y:auto; /* ✅ opcional: evita corte se tiver muitos itens */
     }
 
     .nav-menu.active{
-        right:0;
+        right:0; /* ✅ desliza pra dentro da tela */
     }
 
     .nav-menu li{
@@ -1146,14 +1123,10 @@ footer p {
     }
 
     .nav-menu a{
-
         display:flex;
         align-items:center;
-
         width:100%;
-
         padding:18px 25px;
-
         border-bottom:1px solid rgba(255,255,255,.08);
     }
 
