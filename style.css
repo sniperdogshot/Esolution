@@ -1,5 +1,5 @@
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 section {
@@ -589,22 +589,22 @@ footer p {
 @media (max-width: 992px) {
 
   /* Sobre e Equipe: remove o reverse no mobile pra ficar sempre texto primeiro */
-  .sobre-content {
+.sobre-content {
     flex-direction: column;
-  }
+}
 
-  .sobre-content.reverse {
+.sobre-content.reverse {
     flex-direction: column; /* sobrescreve o reverse no mobile */
-  }
+}
 
-  .sobre-img,
-  .sobre-text {
+.sobre-img,
+.sobre-text {
     width: 100%;
-  }
+}
 
   /* Garantia de ordem */
-  .sobre-img { order: 2; }
-  .sobre-text { order: 1; }
+.sobre-img { order: 2; }
+.sobre-text { order: 1; }
 }
 
 /* Whatsapp Float Button */

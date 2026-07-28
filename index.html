@@ -35,11 +35,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ8V9X5L3B"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'G-ZZ8V9X5L3B');
+    gtag('config', 'G-ZZ8V9X5L3B');
 </script>
 
     <!-- Link para o arquivo CSS -->
@@ -47,11 +47,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <!-- Font Awesome -->
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
+        rel="stylesheet">
 </head>
 
 <body>
@@ -81,8 +81,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </header>
 
     
-   <!-- Hero Section -->
-   <section class="hero">
+    <!-- Hero Section -->
+    <section class="hero">
 
     <div class="container">
 
@@ -97,11 +97,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <span>MAIS INTELIGENTE</span>
             </h1>
 
-             <a href="#contato" class="btn">
+                <a href="#contato" class="btn">
                     SOLICITE UM ORÇAMENTO
                 </a>
-
-          
 
             <div class="hero-actions">
 
@@ -146,7 +144,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="sobre" id="sobre">
         <div class="container">
             <div class="sobre-content reverse">
-               <div class="sobre-img fade-in">
+                <div class="sobre-img fade-in">
                     <div class="carousel-container fade-in">
                         <div class="carousel-slide active">
                             <img src="images/sobre1.png" alt="sobre">
@@ -169,8 +167,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <p>A Esolution é uma empresa de engenharia que combina experiência, tecnologia e inovação para desenvolver soluções mais seguras, eficientes e sustentáveis.
                         Com uma equipe de profissionais especializados e atuação em diferentes segmentos, buscamos oferecer serviços de alto padrão, sempre com foco em qualidade, pontualidade e excelência.
                     </p>
-
-                     <p>
+                    <p>
                     Tecnologia, experiência e eficiência para transformar projetos em resultados. 
                     </p>
                 </div>
@@ -217,11 +214,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 </section>
 
-   <!-- Equipe Section -->
+    <!-- Equipe Section -->
     <section class="equipe" id="equipe">
         <div class="container">
 
-             <div class="sobre-content reverse">
+            <div class="sobre-content reverse">
 
                 <div class="sobre-img fade-in">
                     <div class="carousel-container">
@@ -271,7 +268,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
 
         <!-- Estrutura Section -->
-   <section class="estrutura section-alt" id="estrutura">
+    <section class="estrutura section-alt" id="estrutura">
     <div class="container">
         <div class="sobre-content">
 
@@ -370,7 +367,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div class="contato-text">
                             <h4>WhatsApp</h4>
                             <a href="https://api.whatsapp.com/send/?phone=5585981175776&amp;text&amp;type=phone_number&amp;app_absent=0"
-                                target="_blank">
+                                target="_blank"
+                                onclick="trackWhatsAppClick()">
                                 (85) 98117-5776
                             </a>
                         </div>
@@ -424,7 +422,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <a href="https://www.instagram.com/esolution_engenharia/" target="_blank"><i
                         class="fab fa-instagram"></i></a>
                 <a href="https://api.whatsapp.com/send/?phone=5585981175776&amp;text&amp;type=phone_number&amp;app_absent=0"
-                    target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    target="_blank"><i class="fab fa-whatsapp"onclick="trackWhatsAppClick()"></i></a>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juliano@esolut.eng.br" target="_blank"><i 
                     class="fas fa-envelope"></i></a>
             </div>
@@ -440,6 +438,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Script externo -->
     <script src="script.js"></script>
+
+    <script>
+function trackWhatsAppClick() {
+
+    // Google Analytics 4
+    gtag('event', 'clique_whatsapp', {
+        event_category: 'Contato',
+        event_label: 'WhatsApp'
+    });
+
+    // Meta Pixel
+    fbq('track', 'Contact');
+
+}
+</script>
 </body>
 
 </html>
