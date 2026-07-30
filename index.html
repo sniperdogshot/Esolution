@@ -373,7 +373,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </a>
                         </div>
                     </div>
-
+<!--
                     <div class="contato-item">
                         <i class="fab fa-instagram"></i>
                         <div class="contato-text">
@@ -384,13 +384,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </a>
                         </div>
                     </div>
-
+-->
                     <div class="contato-item">
                         <i class="fas fa-envelope"></i>
                         <div class="contato-text">
                             <h4>E-mail</h4>
                             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juliano@esolut.eng.br"
-                                target="_blank">
+                                target="_blank"  onclick="trackEmailClick()">
                                 juliano@esolut.eng.br
                             </a>
                         </div>
@@ -419,12 +419,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="container">
             <img src="images/EsolutionLogo1.png" alt="Esolution Engenharia" class="footer-logo">
             <div class="social-links">
-                <a href="https://www.instagram.com/esolution_engenharia/" target="_blank"><i
-                        class="fab fa-instagram"></i></a>
+                <!-- <a href="https://www.instagram.com/esolution_engenharia/" target="_blank"><i
+                        class="fab fa-instagram"></i></a> -->
                 <a href="https://api.whatsapp.com/send/?phone=5585981175776&amp;text&amp;type=phone_number&amp;app_absent=0"
-                    target="_blank"><i class="fab fa-whatsapp"onclick="trackWhatsAppClick()"></i></a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juliano@esolut.eng.br" target="_blank"><i 
-                    class="fas fa-envelope"></i></a>
+                    target="_blank" onclick="trackWhatsAppClick()">
+                    <i class="fab fa-whatsapp"></i></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juliano@esolut.eng.br" target="_blank" onclick="trackEmailClick()">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
             <p>&copy; Esolution Engenharia - Todos os direitos reservados.</p>
         </div>
@@ -432,14 +434,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- WhatsApp Float Button -->
     <a href="https://api.whatsapp.com/send/?phone=5585981175776&amp;text&amp;type=phone_number&amp;app_absent=0"
-        class="whatsapp-float" target="_blank">
+        class="whatsapp-float" target="_blank" onclick="trackWhatsAppClick()">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Script externo -->
     <script src="script.js"></script>
 
-    <script>
+<script>
 function trackWhatsAppClick() {
 
     // Google Analytics 4
@@ -450,7 +452,18 @@ function trackWhatsAppClick() {
 
     // Meta Pixel
     fbq('track', 'Contact');
+}
 
+function trackEmailClick() {
+
+    // Google Analytics 4
+    gtag('event', 'clique_email', {
+        event_category: 'Contato',
+        event_label: 'Email'
+    });
+
+    // Meta Pixel
+    fbq('trackCustom', 'EmailClick');
 }
 </script>
 </body>
