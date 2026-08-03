@@ -5,6 +5,16 @@
 
     <meta name="description"
         content="Esolution Engenharia oferece projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará. Solicite seu orçamento.">
+    
+    <meta property="og:type" content="website">
+
+    <meta property="og:image"
+        content="https://esolution-engenharia.netlify.app/images/EsolutionLogo1.png">
+
+    <meta property="og:url"
+        content="https://esolution-engenharia.netlify.app/">
+
+    <meta property="og:locale" content="pt_BR">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
@@ -132,16 +142,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </div>
                     </div>
 
-                </div>
+                    </div>
                 
-                <h4><span>Gere sua própria energia!</span></h4>
+                    <h4><span>Gere sua própria energia!</span></h4>
+                </div>
+
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
     <!-- Sobre Section -->
     <section class="sobre" id="sobre">
@@ -179,43 +189,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
 
         <!-- Sistema Section -->
-<section class="estrutura section-alt" id="sistema">
-    <div class="container">
-        <div class="sobre-content">
-            <div class="sobre-img fade-in">
-                <div class="carousel-container fade-in">
-                    <div class="carousel-slide active">
-                        <img src="images/fotovoltaico1.png" alt="Sistema Fotovoltaico">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="images/fotovoltaico2.png" alt="Sistema Fotovoltaico">
-                    </div>
+    <section class="estrutura section-alt" id="sistema">
+        <div class="container">
+            <div class="sobre-content">
+                <div class="sobre-img fade-in">
+                    <div class="carousel-container fade-in">
+                        <div class="carousel-slide active">
+                            <img src="images/fotovoltaico1.png" alt="Sistema Fotovoltaico">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/fotovoltaico2.png" alt="Sistema Fotovoltaico">
+                        </div>
 
-                    <div class="carousel-dots">
-                        <span class="carousel-dot active" data-index="0"></span>
-                        <span class="carousel-dot" data-index="1"></span>
+                        <div class="carousel-dots">
+                            <span class="carousel-dot active" data-index="0"></span>
+                            <span class="carousel-dot" data-index="1"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="sobre-text fade-in delay-1">
-                <h2>Como o sistema funciona?</h2>
+                <div class="sobre-text fade-in delay-1">
+                    <h2>Como o sistema funciona?</h2>
 
-                <p>
+                    <p>
                     Os painéis solares captam a luz do sol e a transformam em energia elétrica.
                     O inversor converte essa energia para que ela possa ser utilizada normalmente.
-                </p>
-                <p>
+                    </p>
+                    <p>
                     Quando o sistema gera mais energia do que você consome, o excedente é enviado para a rede elétrica e convertido em créditos de energia. 
                     Esses créditos podem ser utilizados posteriormente, quando o consumo for maior do que a geração.<br>
-                </p>
-                <p>
+                    </p>
+                    <p>
                     Tudo isso sem a necessidade de baterias, tornando a energia solar uma solução mais econômica, eficiente e acessível.<br>
-                </p>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Equipe Section -->
     <section class="equipe" id="equipe">
@@ -295,52 +305,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-<section class="simulador" id="simulador">
-    <div class="container">
+    <section class="simulador" id="simulador">
+        <div class="container">
 
-        <div class="simulador-grid">
+            <div class="simulador-grid">
 
-            <div class="simulador-box">
+                <div class="simulador-box">
 
-                <h2>Simule sua Economia</h2>
+                    <h2>Simule sua Economia</h2>
 
-                <p>
+                    <p>
                     Informe o valor médio da sua conta de energia e veja uma estimativa de economia com energia solar.
-                </p>
+                    </p>
 
-                <div class="form-group">
-                    <label>Valor da sua conta mensal</label>
-                    <input
-                        type="number"
-                        id="consumo"
-                        oninput="habilitarBotao()">
-                </div>
+                    <div class="form-group">
+                        <label>Valor da sua conta mensal</label>
+                        <input
+                            type="number"
+                            id="consumo"
+                            oninput="habilitarBotao()">
+                    </div>
 
-                <button class="btn" onclick="calcularEconomia()" id="btnCalcular" disabled>
-                    Economia Estimada 1ºano
-                </button>
+                    <button class="btn" onclick="calcularEconomia()" id="btnCalcular" disabled>
+                        Economia Estimada 1ºano
+                    </button>
                 
-                <div class="economia-item">
-                    <small>Consumo estimado (kWh)</small>
-                    <h3 id="resultado">0 kWh</h3>
-                </div>
+                    <div class="economia-item">
+                        <small>Consumo estimado (kWh)</small>
+                        <h3 id="resultado">0 kWh</h3>
+                    </div>
 
-                <div class="economia-item">
-                    <small>Nova Conta Mensal</small>
-                    <h3 id="novaConta">R$ 0,00</h3>
-                </div>
+                    <div class="economia-item">
+                        <small>Nova Conta Mensal</small>
+                        <h3 id="novaConta">R$ 0,00</h3>
+                    </div>
 
-                <div class="economia-item destaque">
-                    <small>Nova Conta Anual</small>
-                    <h3 id="novaContaAnual">R$ 0,00</h3>
+                    <div class="economia-item destaque">
+                        <small>Nova Conta Anual</small>
+                        <h3 id="novaContaAnual">R$ 0,00</h3>
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
-
-    </div>
-</section>
+    </section>
 
     <!-- Contato Section -->
     <section class="contato" id="contato">
