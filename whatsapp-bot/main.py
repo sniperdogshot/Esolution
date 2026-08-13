@@ -316,15 +316,82 @@ async def verify_webhook(
 # ================================================
 
 @app.post("/webhook")
-async def receive_webhook(
-    request: Request
-):
+async def receive_webhook(request: Request):
 
     data = await request.json()
 
-    print("\nMensagem recebida:")
+    print("\n==============================")
+    print("MENSAGEM RECEBIDA DO WHATSAPP")
+    print("==============================")
     print(data)
 
-    return {
-        "status": "received"
-    }
+    try:
+
+        entry = data["entry"][0]
+
+        change = entry["changes"][0]
+
+        value = change["value"]
+
+        messages = value.get("messages", [])
+
+        if not messages:
+            return {
+                "status": "ignored",
+                "reason": "Nenhuma mensagem encontrada"
+            }
+
+        message = messages[0]
+
+        telefone = message["from"]
+
+        tipo = message.get("type")
+
+        if tipo != "text":
+
+            return {
+                "status": "ignored",
+                "reason": f"Tipo de mensagem não suportado: {tipo}"
+            }
+
+        mensagem = message["text"]["body"]
+
+        print(f"Telefone: {telefone}")
+        print(f"Mensagem: {mensagem}")
+
+        # ========================================
+        # PROCESSA A MENSAGEM NO NOSSO BOT
+        # ========================================
+
+        db = SessionLocal()
+
+        try:
+
+            resposta = processar_mensagem(
+                db,
+                telefone,
+                mensagem
+            )
+
+        finally:
+
+            db.close()
+
+        print(f"Resposta: {resposta}")
+
+        return {
+            "status": "processed",
+            "telefone": telefone,
+            "mensagem": mensagem,
+            "resposta": resposta
+        }
+
+    except Exception as e:
+
+        print("ERRO AO PROCESSAR WEBHOOK:")
+        print(str(e))
+
+        return {
+            "status": "error",
+            "message": str(e)
+        }
