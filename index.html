@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,12 +9,17 @@
     <meta name="description"
         content="Esolution Engenharia oferece projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará. Solicite seu orçamento.">
 
+    <link rel="canonical" href="https://esolution-engenharia.netlify.app/">
+
     <script type="application/ld+json"> {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Esolution Engenharia",
         "url": "https://esolution-engenharia.netlify.app/",
+        "image": "https://esolution-engenharia.netlify.app/images/og-image.jpg",
+        "logo": "https://esolution-engenharia.netlify.app/images/EsolutionLogo1.webp",
         "telephone": "+55 85 98154-6006",
+        "email": "juliano@esolut.eng.br",
         "description": "Projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará.",
         "address": {
             "@type": "PostalAddress",
@@ -34,7 +42,7 @@
                 "name": "Ceará"
             }
         ],
-            "knowsAbout": [
+        "knowsAbout": [
             "Energia Solar",
             "Sistemas Fotovoltaicos",
             "Projetos de Energia Solar",
@@ -42,152 +50,122 @@
         ]
     }
     </script>
-    
+
     <meta property="og:type" content="website">
-
-    <meta property="og:image"
-        content="https://esolution-engenharia.netlify.app/images/favicon.png">
-
-    <meta property="og:url"
-        content="https://esolution-engenharia.netlify.app/">
-
+    <meta property="og:site_name" content="Esolution Engenharia">
+    <meta property="og:title" content="Esolution Engenharia | Energia Solar em Fortaleza, Eusébio e Ceará">
+    <meta property="og:description"
+        content="Projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará. Solicite seu orçamento.">
+    <meta property="og:image" content="https://esolution-engenharia.netlify.app/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://esolution-engenharia.netlify.app/">
     <meta property="og:locale" content="pt_BR">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
-    <!-- Meta Pixel Code -->
-    <script>
-    !function (f, b, e, v, n, t, s) {
-        if (f.fbq) return; n = f.fbq = function () {
-            n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-        };
-        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-        n.queue = []; t = b.createElement(e); t.async = !0;
-        t.src = v; s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s)
-    }(window, document, 'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1281633922901130');
-    fbq('track', 'PageView');
-    </script>
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PDXMRRWM');</script>
-<!-- End Google Tag Manager -->
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ8V9X5L3B"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-ZZ8V9X5L3B');
-</script>
+    <!-- Imagem do hero (LCP) -->
+    <link rel="preload" as="image" href="images/background.webp" fetchpriority="high">
 
     <!-- Link para o arquivo CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+
+    <!-- Font Awesome (carregado sem bloquear a renderização) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
+
+    <!-- Meta Pixel, Google Tag Manager e GA4 são carregados por tracking.js após o consentimento -->
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PDXMRRWM"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
     <!-- Header -->
     <header id="header">
         <div class="container header-content">
-            <img src="images/EsolutionLogo1.png" alt="Esolution Engenharia" class="logo">
-            <nav>
+            <img src="images/EsolutionLogo1.webp" alt="Esolution Engenharia" class="logo" width="700" height="187">
+            <nav aria-label="Principal">
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="#sobre"><i class="fas fa-info-circle"></i>Sobre</a></li>
-                    <li><a href="#sistema"><i class="fas fa-users"></i>Sistema</a></li>                  
-                    <li><a href="#equipe"><i class="fas fa-users"></i>Equipe</a></li>
-                    <li><a href="#estrutura"><i class="fas fa-bullseye"></i>Missão</a></li>
-                    <li><a href="#simulador"><i class="fas fa-calculator"></i>Simulação</a></li>
-                    <li><a href="#contato"><i class="fas fa-envelope"></i>Contato</a></li>
+                    <li><a href="#sobre"><i class="fas fa-info-circle" aria-hidden="true"></i>Sobre</a></li>
+                    <li><a href="#sistema"><i class="fas fa-solar-panel" aria-hidden="true"></i>Sistema</a></li>
+                    <li><a href="#equipe"><i class="fas fa-users" aria-hidden="true"></i>Equipe</a></li>
+                    <li><a href="#missao"><i class="fas fa-bullseye" aria-hidden="true"></i>Missão</a></li>
+                    <li><a href="#simulador"><i class="fas fa-calculator" aria-hidden="true"></i>Simulação</a></li>
+                    <li><a href="#contato"><i class="fas fa-envelope" aria-hidden="true"></i>Contato</a></li>
                 </ul>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu"
+                    aria-expanded="false" aria-controls="navMenu">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
                 </button>
             </nav>
         </div>
     </header>
 
-    
     <!-- Hero Section -->
     <section class="hero">
+        <div class="container">
+            <div class="hero-content">
 
-    <div class="container">
+                <img src="images/EsolutionLogo1.webp" alt="" class="hero-logo" width="700" height="187">
 
-        <div class="hero-content">
-
-            <img src="images/EsolutionLogo1.png" alt="Esolution Solar" class="hero-logo">
-
-
-            <h1>
-                ENERGIA SOLAR<br>
-                <span>PARA UM FUTURO</span><br>
-                <span>MAIS INTELIGENTE</span>
-            </h1>
+                <h1>
+                    ENERGIA SOLAR<br>
+                    <span>PARA UM FUTURO</span><br>
+                    <span>MAIS INTELIGENTE</span>
+                </h1>
 
                 <a href="#contato" class="btn">
                     SOLICITE UM ORÇAMENTO
                 </a>
 
-            <div class="hero-actions">
+                <div class="hero-actions">
 
-                <div class="hero-benefits">
+                    <div class="hero-benefits">
 
-                    <div class="benefit">
-                        <i class="fas fa-solar-panel"></i>
-                        <div>
-                            <h3>Economia</h3>
-                            <p>Economia de até 80%</p>
+                        <div class="benefit">
+                            <i class="fas fa-solar-panel" aria-hidden="true"></i>
+                            <div>
+                                <h3>Economia</h3>
+                                <p>Economia de até 80%</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="benefit">
-                        <i class="fas fa-bolt"></i>
-                        <div>
-                            <h3>Instalação</h3>
-                            <p>Segura e Certificada</p>
+                        <div class="benefit">
+                            <i class="fas fa-bolt" aria-hidden="true"></i>
+                            <div>
+                                <h3>Instalação</h3>
+                                <p>Segura e Certificada</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="benefit">
-                        <i class="fas fa-leaf"></i>
-                        <div>
-                            <h3>Financeiro</h3>
-                            <p>Retorno do Investimento</p>
+                        <div class="benefit">
+                            <i class="fas fa-leaf" aria-hidden="true"></i>
+                            <div>
+                                <h3>Financeiro</h3>
+                                <p>Retorno do Investimento</p>
+                            </div>
                         </div>
-                    </div>
 
                     </div>
-                
-                    <h4><span>Gere sua própria energia!</span></h4>
+
+                    <p class="hero-tagline">Gere sua própria energia!</p>
                 </div>
 
             </div>
-
         </div>
-
     </section>
 
     <!-- Sobre Section -->
@@ -195,20 +173,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="container">
             <div class="sobre-content reverse">
                 <div class="sobre-img fade-in">
-                    <div class="carousel-container fade-in">
+                    <div class="carousel-container">
                         <div class="carousel-slide active">
-                            <img src="images/sobre1.png" alt="sobre">
+                            <img src="images/sobre1.webp" alt="Painéis solares instalados pela Esolution"
+                                width="1200" height="800">
                         </div>
                         <div class="carousel-slide">
-                            <img src="images/sobre2.png" alt="sobre">
+                            <img src="images/sobre2.webp" alt="Projeto de energia solar da Esolution"
+                                width="1200" height="800" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <img src="images/sobre3.png" alt="sobre">
+                            <img src="images/sobre3.webp" alt="Obra de engenharia da Esolution"
+                                width="1200" height="800" loading="lazy">
                         </div>
                         <div class="carousel-dots">
-                            <span class="carousel-dot active" data-index="0"></span>
-                            <span class="carousel-dot" data-index="1"></span>
-                            <span class="carousel-dot" data-index="2"></span>
+                            <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
+                            <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
+                            <button type="button" class="carousel-dot" data-index="2" aria-label="Foto 3"></button>
                         </div>
                     </div>
                 </div>
@@ -218,29 +199,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         Com uma equipe de profissionais especializados e atuação em diferentes segmentos, buscamos oferecer serviços de alto padrão, sempre com foco em qualidade, pontualidade e excelência.
                     </p>
                     <p>
-                    Tecnologia, experiência e eficiência para transformar projetos em resultados. 
+                    Tecnologia, experiência e eficiência para transformar projetos em resultados.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-        <!-- Sistema Section -->
+    <!-- Sistema Section -->
     <section class="estrutura section-alt" id="sistema">
         <div class="container">
             <div class="sobre-content">
                 <div class="sobre-img fade-in">
-                    <div class="carousel-container fade-in">
+                    <div class="carousel-container">
                         <div class="carousel-slide active">
-                            <img src="images/fotovoltaico1.png" alt="Sistema Fotovoltaico">
+                            <img src="images/fotovoltaico1.webp" alt="Como funciona o sistema fotovoltaico"
+                                width="1200" height="800" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <img src="images/fotovoltaico2.png" alt="Sistema Fotovoltaico">
+                            <img src="images/fotovoltaico2.webp" alt="Componentes do sistema fotovoltaico"
+                                width="1200" height="800" loading="lazy">
                         </div>
 
                         <div class="carousel-dots">
-                            <span class="carousel-dot active" data-index="0"></span>
-                            <span class="carousel-dot" data-index="1"></span>
+                            <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
+                            <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
                         </div>
                     </div>
                 </div>
@@ -253,11 +236,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     O inversor converte essa energia para que ela possa ser utilizada normalmente.
                     </p>
                     <p>
-                    Quando o sistema gera mais energia do que você consome, o excedente é enviado para a rede elétrica e convertido em créditos de energia. 
-                    Esses créditos podem ser utilizados posteriormente, quando o consumo for maior do que a geração.<br>
+                    Quando o sistema gera mais energia do que você consome, o excedente é enviado para a rede elétrica e convertido em créditos de energia.
+                    Esses créditos podem ser utilizados posteriormente, quando o consumo for maior do que a geração.
                     </p>
                     <p>
-                    Tudo isso sem a necessidade de baterias, tornando a energia solar uma solução mais econômica, eficiente e acessível.<br>
+                    Tudo isso sem a necessidade de baterias, tornando a energia solar uma solução mais econômica, eficiente e acessível.
                     </p>
                 </div>
             </div>
@@ -274,26 +257,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="carousel-container">
 
                         <div class="carousel-slide active">
-                            <img src="images/equipe1.png" alt="Equipe Esolution">
+                            <img src="images/equipe1.webp" alt="Equipe da Esolution em campo"
+                                width="1200" height="800" loading="lazy">
                         </div>
 
                         <div class="carousel-slide">
-                            <img src="images/equipe2.png" alt="Equipe Esolution">
+                            <img src="images/equipe2.webp" alt="Técnicos da Esolution durante instalação"
+                                width="1200" height="800" loading="lazy">
                         </div>
 
                         <div class="carousel-slide">
-                            <img src="images/equipe3.png" alt="Equipe Esolution">
+                            <img src="images/equipe3.webp" alt="Profissionais da Esolution"
+                                width="1200" height="800" loading="lazy">
                         </div>
 
                         <div class="carousel-dots">
-                            <span class="carousel-dot active" data-index="0"></span>
-                            <span class="carousel-dot" data-index="1"></span>
-                            <span class="carousel-dot" data-index="2"></span>
+                            <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
+                            <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
+                            <button type="button" class="carousel-dot" data-index="2" aria-label="Foto 3"></button>
                         </div>
 
                     </div>
                 </div>
-
 
                 <div class="sobre-text fade-in delay-1">
 
@@ -317,20 +302,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-        <!-- Estrutura Section -->
-    <section class="estrutura section-alt" id="estrutura">
-    <div class="container">
-        <div class="sobre-content">
+    <!-- Missão Section -->
+    <section class="estrutura section-alt" id="missao">
+        <div class="container">
+            <div class="sobre-content">
 
-            <div class="sobre-img fade-in">
-                <video 
-                    src="images/Video.mp4"
-                    autoplay
-                    muted
-                    loop
-                    playsinline>
-                </video>
-            </div>
+                <div class="sobre-img fade-in">
+                    <!-- Sem autoplay: script.js dá play só quando o vídeo entra na tela -->
+                    <video
+                        src="images/Video.mp4"
+                        width="848"
+                        height="478"
+                        preload="none"
+                        muted
+                        loop
+                        playsinline
+                        aria-label="Vídeo institucional da Esolution">
+                    </video>
+                </div>
                 <div class="sobre-text fade-in delay-1">
                     <h2>Nossa Missão</h2>
                     <p>Oferecer as melhores práticas da engenharia, na execução de obras e projetos de infraestrutura, buscando
@@ -342,12 +331,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
+    <!-- Simulador Section -->
     <section class="simulador" id="simulador">
         <div class="container">
 
             <div class="simulador-grid">
 
-                <div class="simulador-box">
+                <form class="simulador-box" id="simuladorForm" novalidate>
 
                     <h2>Simule sua Economia</h2>
 
@@ -356,33 +346,64 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </p>
 
                     <div class="form-group">
-                        <label>Valor da sua conta mensal</label>
-                        <input
-                            type="number"
-                            id="consumo"
-                            oninput="habilitarBotao()">
+                        <label for="consumo">Valor da sua conta mensal</label>
+                        <div class="input-moeda">
+                            <span aria-hidden="true">R$</span>
+                            <input
+                                type="number"
+                                id="consumo"
+                                min="1"
+                                step="0.01"
+                                inputmode="decimal"
+                                placeholder="Ex.: 500">
+                        </div>
                     </div>
 
-                    <button class="btn" onclick="calcularEconomia()" id="btnCalcular" disabled>
-                        Economia Estimada 1ºano
+                    <button type="submit" class="btn" id="btnCalcular" disabled>
+                        Calcular economia
                     </button>
-                
-                    <div class="economia-item">
-                        <small>Consumo estimado (kWh)</small>
-                        <h3 id="resultado">0 kWh</h3>
+
+                    <div aria-live="polite">
+
+                        <div class="economia-item">
+                            <small>Consumo estimado</small>
+                            <h3 id="resultado">0 kWh/mês</h3>
+                        </div>
+
+                        <div class="economia-item">
+                            <small>Nova Conta Mensal</small>
+                            <h3 id="novaConta">R$ 0,00</h3>
+                        </div>
+
+                        <div class="economia-item">
+                            <small>Nova Conta Anual</small>
+                            <h3 id="novaContaAnual">R$ 0,00</h3>
+                        </div>
+
+                        <div class="economia-item">
+                            <small>Economia Mensal</small>
+                            <h3 id="economiaMensal">R$ 0,00</h3>
+                        </div>
+
+                        <div class="economia-item destaque">
+                            <small>Economia no 1º ano</small>
+                            <h3 id="economiaAnual">R$ 0,00</h3>
+                        </div>
+
                     </div>
 
-                    <div class="economia-item">
-                        <small>Nova Conta Mensal</small>
-                        <h3 id="novaConta">R$ 0,00</h3>
-                    </div>
+                    <a class="btn btn-whatsapp" id="btnOrcamento" href="https://wa.me/5585981546006"
+                        target="_blank" rel="noopener" data-track="whatsapp" hidden>
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        Receber orçamento no WhatsApp
+                    </a>
 
-                    <div class="economia-item destaque">
-                        <small>Nova Conta Anual</small>
-                        <h3 id="novaContaAnual">R$ 0,00</h3>
-                    </div>
+                    <p class="simulador-aviso">
+                        Estimativa com base em valores médios de tarifa. A economia real depende do seu consumo,
+                        do local e do projeto.
+                    </p>
 
-                </div>
+                </form>
 
             </div>
 
@@ -393,7 +414,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="contato" id="contato">
         <div class="container">
             <div class="contato-info fade-in">
-                <h3>Contato</h3>
+                <h2>Contato</h2>
                 <p>Fale conosco ou venha nos visitar</p>
             </div>
 
@@ -403,9 +424,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <h3>Informações</h3>
 
                     <div class="contato-item">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                         <div class="contato-text">
-                            <h5>Endereço</h5>
+                            <h4>Endereço</h4>
                             <p>
                                 Rua Zildênia, 1166 - Sala 05 Amador - Eusébio/CE
                             </p>
@@ -413,12 +434,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
 
                     <div class="contato-item">
-                        <i class="fab fa-whatsapp"></i>
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
                         <div class="contato-text">
                             <h4>WhatsApp</h4>
-                            <a href="https://api.whatsapp.com/send/?phone=5585981546006&amp;text&amp;type=phone_number&amp;app_absent=0"
-                                target="_blank"
-                                onclick="trackWhatsAppClick()">
+                            <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20de%20energia%20solar."
+                                target="_blank" rel="noopener" data-track="whatsapp">
                                 (85) 98154-6006
                             </a>
                         </div>
@@ -436,11 +456,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
 -->
                     <div class="contato-item">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
                         <div class="contato-text">
                             <h4>E-mail</h4>
-                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juliano@esolut.eng.br"
-                                target="_blank"  onclick="trackEmailClick()">
+                            <a href="mailto:juliano@esolut.eng.br" data-track="email">
                                 juliano@esolut.eng.br
                             </a>
                         </div>
@@ -451,6 +470,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="mapa fade-in delay-1">
                     <iframe
                         src="https://www.google.com/maps?q=Rua+Zild%C3%AAnia,+1166+-+Sala+05,+Amador,+Eus%C3%A9bio,+CE&output=embed"
+                        title="Mapa com a localização da Esolution Engenharia"
                         width="600"
                         height="450"
                         style="border:0;"
@@ -467,55 +487,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Footer -->
     <footer>
         <div class="container">
-            <img src="images/EsolutionLogo1.png" alt="Esolution Engenharia" class="footer-logo">
+            <img src="images/EsolutionLogo1.webp" alt="Esolution Engenharia" class="footer-logo" width="700"
+                height="187" loading="lazy">
             <div class="social-links">
                 <!-- <a href="https://www.instagram.com/esolution_engenharia/" target="_blank"><i
                         class="fab fa-instagram"></i></a> -->
-                <a href="https://api.whatsapp.com/send/?phone=5585981546006&amp;text&amp;type=phone_number&amp;app_absent=0"
-                    target="_blank" onclick="trackWhatsAppClick()">
-                    <i class="fab fa-whatsapp"></i></a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=juliano@esolut.eng.br" target="_blank" onclick="trackEmailClick()">
-                    <i class="fas fa-envelope"></i>
+                <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20de%20energia%20solar."
+                    target="_blank" rel="noopener" data-track="whatsapp" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                <a href="mailto:juliano@esolut.eng.br" data-track="email" aria-label="E-mail">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
                 </a>
             </div>
             <p>&copy; Esolution Engenharia - Todos os direitos reservados.</p>
+            <p><a href="privacidade.html" class="footer-link">Política de Privacidade</a></p>
         </div>
     </footer>
 
     <!-- WhatsApp Float Button -->
-    <a href="https://api.whatsapp.com/send/?phone=5585981546006&amp;text&amp;type=phone_number&amp;app_absent=0"
-        class="whatsapp-float" target="_blank" onclick="trackWhatsAppClick()">
-        <i class="fab fa-whatsapp"></i>
+    <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20de%20energia%20solar."
+        class="whatsapp-float" target="_blank" rel="noopener" data-track="whatsapp"
+        aria-label="Falar no WhatsApp">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i>
     </a>
 
-    <!-- Script externo -->
+    <!-- Aviso de cookies -->
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Aviso de cookies" hidden>
+        <p>
+            Usamos cookies de medição e publicidade (Google e Meta) para entender como o site é usado.
+            Veja a <a href="privacidade.html">Política de Privacidade</a>.
+        </p>
+        <div class="cookie-actions">
+            <button type="button" class="cookie-btn secundario" id="cookieRecusar">Recusar</button>
+            <button type="button" class="cookie-btn" id="cookieAceitar">Aceitar</button>
+        </div>
+    </div>
+
+    <script src="tracking.js"></script>
     <script src="script.js"></script>
-
-<script>
-function trackWhatsAppClick() {
-
-    // Google Analytics 4
-    gtag('event', 'clique_whatsapp', {
-        event_category: 'Contato',
-        event_label: 'WhatsApp'
-    });
-
-    // Meta Pixel
-    fbq('track', 'Contact');
-}
-
-function trackEmailClick() {
-
-    // Google Analytics 4
-    gtag('event', 'clique_email', {
-        event_category: 'Contato',
-        event_label: 'Email'
-    });
-
-    // Meta Pixel
-    fbq('trackCustom', 'EmailClick');
-}
-</script>
 </body>
 
 </html>

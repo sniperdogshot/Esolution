@@ -1,4 +1,4 @@
-// Mobile Menu Toggle - Updated
+// Mobile Menu Toggle
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 const navMenu = document.getElementById('navMenu');
 
@@ -7,64 +7,53 @@ const backdrop = document.createElement('div');
 backdrop.className = 'menu-backdrop';
 document.body.appendChild(backdrop);
 
-// Toggle menu and backdrop
-mobileMenuBtn.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-  backdrop.classList.toggle('active');
-  mobileMenuBtn.classList.toggle('active');
+function setMenu(aberto) {
+  navMenu.classList.toggle('active', aberto);
+  backdrop.classList.toggle('active', aberto);
+  mobileMenuBtn.classList.toggle('active', aberto);
+  mobileMenuBtn.setAttribute('aria-expanded', aberto);
+  mobileMenuBtn.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
 
-  document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-  
+  document.body.style.overflow = aberto ? 'hidden' : '';
+
   const icon = mobileMenuBtn.querySelector('i');
-  if (icon.classList.contains('fa-bars')) {
-    icon.classList.remove('fa-bars');
-    icon.classList.add('fa-times');
-  } else {
-    icon.classList.remove('fa-times');
-    icon.classList.add('fa-bars');
-  }
+  icon.classList.toggle('fa-bars', !aberto);
+  icon.classList.toggle('fa-times', aberto);
+}
+
+mobileMenuBtn.addEventListener('click', () => {
+  setMenu(!navMenu.classList.contains('active'));
 });
 
-// Close menu when clicking on backdrop
-backdrop.addEventListener('click', () => {
-  navMenu.classList.remove('active');
-  backdrop.classList.remove('active');
-  document.body.style.overflow = '';
-  mobileMenuBtn.classList.remove('active');
+// Close menu when clicking on backdrop or pressing Esc
+backdrop.addEventListener('click', () => setMenu(false));
 
-  const icon = mobileMenuBtn.querySelector('i');
-  icon.classList.remove('fa-times');
-  icon.classList.add('fa-bars');
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+    setMenu(false);
+    mobileMenuBtn.focus();
+  }
 });
 
 // Header Scroll Effect
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 100) header.classList.add('scrolled');
-  else header.classList.remove('scrolled');
-});
+  header.classList.toggle('scrolled', window.scrollY > 100);
+}, { passive: true });
 
 // Navegação do menu
 document.querySelectorAll('.nav-menu a').forEach(link => {
 
     link.addEventListener('click', function (e) {
 
-        e.preventDefault();
-
         const target = document.querySelector(this.getAttribute('href'));
 
         if (!target) return;
 
-        // Fecha o menu
-        navMenu.classList.remove('active');
-        backdrop.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-        document.body.style.overflow = '';
+        e.preventDefault();
 
-        // Volta o ícone
-        const icon = mobileMenuBtn.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+        const menuAberto = navMenu.classList.contains('active');
+        setMenu(false);
 
         // Aguarda a animação do menu terminar
         setTimeout(() => {
@@ -76,38 +65,38 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
                 behavior: 'smooth'
             });
 
-        }, 300);
+        }, menuAberto ? 300 : 0);
 
     });
 
 });
 
 
-// Animation on Scroll
+// Animation on Scroll (o estilo fica em .fade-in / .fade-pending no CSS)
 const fadeElems = document.querySelectorAll('.fade-in');
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = 1;
-      entry.target.style.transform = 'translateY(0)';
+      entry.target.classList.remove('fade-pending');
       observer.unobserve(entry.target);
     }
   });
 }, { threshold: 0.1 });
 
 fadeElems.forEach(elem => {
-  elem.style.opacity = 0;
-  elem.style.transform = 'translateY(20px)';
-  elem.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  elem.classList.add('fade-pending');
   observer.observe(elem);
 });
 
-// Facebook Pixel Event Tracking
-document.querySelectorAll('a[href^="https://app.tecnofit.com.br"]').forEach(link => {
-  link.addEventListener('click', function () {
-    if (window.fbq) fbq('track', 'InitiateCheckout');
-  });
+// Vídeo: só carrega e toca quando entra na tela
+document.querySelectorAll('video[preload="none"]').forEach(video => {
+  new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    });
+  }, { rootMargin: '200px' }).observe(video);
 });
 
 // Carousel functionality
@@ -124,13 +113,17 @@ function setupCarousels() {
     const nav = document.createElement('div');
     nav.className = 'carousel-nav';
 
-    const prevArrow = document.createElement('div');
+    const prevArrow = document.createElement('button');
+    prevArrow.type = 'button';
     prevArrow.className = 'carousel-arrow prev';
-    prevArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    prevArrow.setAttribute('aria-label', 'Foto anterior');
+    prevArrow.innerHTML = '<i class="fas fa-chevron-left" aria-hidden="true"></i>';
 
-    const nextArrow = document.createElement('div');
+    const nextArrow = document.createElement('button');
+    nextArrow.type = 'button';
     nextArrow.className = 'carousel-arrow next';
-    nextArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    nextArrow.setAttribute('aria-label', 'Próxima foto');
+    nextArrow.innerHTML = '<i class="fas fa-chevron-right" aria-hidden="true"></i>';
 
     nav.appendChild(prevArrow);
     nav.appendChild(nextArrow);
@@ -225,16 +218,25 @@ function setupCarousels() {
 
 document.addEventListener('DOMContentLoaded', setupCarousels);
 
-function habilitarBotao() {
-    const valor = document.getElementById("consumo").value;
-    const botao = document.getElementById("btnCalcular");
+// Simulador de economia
+const WHATSAPP_NUMERO = '5585981546006';
 
-    botao.disabled = valor.trim() === "" || parseFloat(valor) <= 0;
+const campoConta = document.getElementById('consumo');
+const btnCalcular = document.getElementById('btnCalcular');
+const btnOrcamento = document.getElementById('btnOrcamento');
+
+function formatarReais(valor) {
+    return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
 }
 
 function calcularEconomia() {
 
-    const valorContaMensal = parseFloat(document.getElementById("consumo").value);
+    const valorContaMensal = parseFloat(campoConta.value);
+
+    if (!(valorContaMensal > 0)) return;
 
     const K6 = 0.3420;
     const K7 = 0.6428;
@@ -247,49 +249,42 @@ function calcularEconomia() {
     // Consumo anual
     const consumoAnual = consumoMensal * 12;
 
-    // Valor após a instalação (anual)
-    const novaContaAnual =
+    // Economia após a instalação
+    const economiaAnual =
         consumoAnual * GD * K8 +
         consumoAnual * (1 - GD) * K6 +
         consumoAnual * (1 - GD) * K7 * GD;
 
-    // Valor após a instalação (mensal)
-    const novaContaMensal = novaContaAnual / 12;
-
-    // Economia = valor calculado
-    const economiaMensal = novaContaMensal;
-    const economiaAnual = novaContaAnual;
+    const economiaMensal = economiaAnual / 12;
 
     // Nova conta = conta antiga - economia
-    const novaContaMensalFinal = valorContaMensal - economiaMensal;
-    const novaContaAnualFinal = (valorContaMensal * 12) - economiaAnual;
+    const novaContaMensal = valorContaMensal - economiaMensal;
+    const novaContaAnual = (valorContaMensal * 12) - economiaAnual;
 
-    document.getElementById("resultado").innerHTML =
+    document.getElementById("resultado").textContent =
         consumoMensal.toFixed(0) + " kWh/mês";
 
-    // Exibe a nova conta (R$ 215,01)
-    document.getElementById("novaConta").innerHTML =
-        novaContaMensalFinal.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+    document.getElementById("novaConta").textContent = formatarReais(novaContaMensal);
+    document.getElementById("novaContaAnual").textContent = formatarReais(novaContaAnual);
+    document.getElementById("economiaMensal").textContent = formatarReais(economiaMensal);
+    document.getElementById("economiaAnual").textContent = formatarReais(economiaAnual);
 
-    document.getElementById("novaContaAnual").innerHTML =
-        novaContaAnualFinal.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+    // Botão de orçamento já com os números da simulação
+    const mensagem =
+        "Olá! Fiz a simulação no site: minha conta de luz é de " +
+        formatarReais(valorContaMensal) + " por mês e a economia estimada foi de " +
+        formatarReais(economiaAnual) + " no 1º ano. Gostaria de um orçamento.";
 
-    // Exibe a economia (R$ 523,56)
-    document.getElementById("economiaMensal").innerHTML =
-        economiaMensal.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
-
-    document.getElementById("economiaAnual").innerHTML =
-        economiaAnual.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        });
+    btnOrcamento.href =
+        "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(mensagem);
+    btnOrcamento.hidden = false;
 }
+
+campoConta.addEventListener('input', () => {
+    btnCalcular.disabled = !(parseFloat(campoConta.value) > 0);
+});
+
+document.getElementById('simuladorForm').addEventListener('submit', e => {
+    e.preventDefault();
+    calcularEconomia();
+});
