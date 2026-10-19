@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b2a22">
     <title>Esolution Engenharia | Energia Solar em Fortaleza, Eusébio e Ceará</title>
 
     <meta name="description"
-        content="Esolution Engenharia oferece projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará. Solicite seu orçamento.">
+        content="Esolution Engenharia oferece projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará. Simule sua economia e solicite seu orçamento.">
 
     <link rel="canonical" href="https://esolution-engenharia.netlify.app/">
 
@@ -51,11 +52,44 @@
     }
     </script>
 
+    <script type="application/ld+json"> {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "A energia solar funciona em dias nublados?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Funciona, com produção menor. O sistema é dimensionado pela média de sol do ano inteiro, e o Ceará está entre os lugares com mais sol do Brasil." }
+            },
+            {
+                "@type": "Question",
+                "name": "E à noite, de onde vem a energia?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Da rede da distribuidora. O que o sistema gera a mais durante o dia vira créditos de energia, que abatem o consumo da noite e dos meses com menos sol." }
+            },
+            {
+                "@type": "Question",
+                "name": "Preciso comprar baterias?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Não. No sistema conectado à rede, os créditos de energia fazem o papel da bateria, o que deixa o investimento menor." }
+            },
+            {
+                "@type": "Question",
+                "name": "Minha conta de luz vai zerar?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Não. Continua a cobrança mínima da distribuidora (custo de disponibilidade) e, pelas regras atuais, uma parte do uso da rede. Por isso a economia é de até 80%, e não de 100%." }
+            },
+            {
+                "@type": "Question",
+                "name": "Quanto tempo dura um sistema de energia solar?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Os painéis costumam durar mais de 25 anos. O inversor tem vida útil menor e pode precisar ser trocado ao longo desse período." }
+            }
+        ]
+    }
+    </script>
+
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Esolution Engenharia">
     <meta property="og:title" content="Esolution Engenharia | Energia Solar em Fortaleza, Eusébio e Ceará">
     <meta property="og:description"
-        content="Projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará. Solicite seu orçamento.">
+        content="Projetos e instalação de energia solar e sistemas fotovoltaicos em Fortaleza, Eusébio e todo o Ceará. Simule sua economia e solicite seu orçamento.">
     <meta property="og:image" content="https://esolution-engenharia.netlify.app/images/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -76,7 +110,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap"
         rel="stylesheet">
 
     <!-- Font Awesome (carregado sem bloquear a renderização) -->
@@ -93,18 +127,28 @@
 </head>
 
 <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
     <!-- Header -->
     <header id="header">
         <div class="container header-content">
-            <img src="images/EsolutionLogo1.webp" alt="Esolution Engenharia" class="logo" width="700" height="187">
+            <a href="#topo" class="logo-link" aria-label="Esolution Engenharia, início">
+                <img src="images/EsolutionLogo1.webp" alt="Esolution Engenharia" class="logo" width="700" height="187">
+            </a>
             <nav aria-label="Principal">
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="#sobre"><i class="fas fa-info-circle" aria-hidden="true"></i>Sobre</a></li>
-                    <li><a href="#sistema"><i class="fas fa-solar-panel" aria-hidden="true"></i>Sistema</a></li>
-                    <li><a href="#equipe"><i class="fas fa-users" aria-hidden="true"></i>Equipe</a></li>
-                    <li><a href="#missao"><i class="fas fa-bullseye" aria-hidden="true"></i>Missão</a></li>
-                    <li><a href="#simulador"><i class="fas fa-calculator" aria-hidden="true"></i>Simulação</a></li>
-                    <li><a href="#contato"><i class="fas fa-envelope" aria-hidden="true"></i>Contato</a></li>
+                    <li><a href="#simulador">Simulação</a></li>
+                    <li><a href="#sistema">Como funciona</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#equipe">Equipe</a></li>
+                    <li><a href="#duvidas">Dúvidas</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                    <li class="nav-cta-item">
+                        <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20de%20energia%20solar."
+                            class="nav-cta" target="_blank" rel="noopener" data-track="whatsapp">
+                            <i class="fab fa-whatsapp" aria-hidden="true"></i>Orçamento
+                        </a>
+                    </li>
                 </ul>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Abrir menu"
                     aria-expanded="false" aria-controls="navMenu">
@@ -114,121 +158,139 @@
         </div>
     </header>
 
+    <main id="conteudo">
+
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
+    <section class="hero" id="topo">
+        <div class="container hero-inner">
             <div class="hero-content">
 
-                <img src="images/EsolutionLogo1.webp" alt="" class="hero-logo" width="700" height="187">
+                <p class="kicker">Energia solar em Fortaleza, Eusébio e todo o Ceará</p>
 
-                <h1>
-                    ENERGIA SOLAR<br>
-                    <span>PARA UM FUTURO</span><br>
-                    <span>MAIS INTELIGENTE</span>
-                </h1>
+                <h1>Gere sua própria energia.</h1>
 
-                <a href="#contato" class="btn">
-                    SOLICITE UM ORÇAMENTO
-                </a>
+                <p class="hero-lead">
+                    Projeto e instalação de sistemas fotovoltaicos para casas e empresas, com
+                    economia de até 80% na conta de luz.
+                </p>
 
-                <div class="hero-actions">
-
-                    <div class="hero-benefits">
-
-                        <div class="benefit">
-                            <i class="fas fa-solar-panel" aria-hidden="true"></i>
-                            <div>
-                                <h3>Economia</h3>
-                                <p>Economia de até 80%</p>
-                            </div>
-                        </div>
-
-                        <div class="benefit">
-                            <i class="fas fa-bolt" aria-hidden="true"></i>
-                            <div>
-                                <h3>Instalação</h3>
-                                <p>Segura e Certificada</p>
-                            </div>
-                        </div>
-
-                        <div class="benefit">
-                            <i class="fas fa-leaf" aria-hidden="true"></i>
-                            <div>
-                                <h3>Financeiro</h3>
-                                <p>Retorno do Investimento</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <p class="hero-tagline">Gere sua própria energia!</p>
+                <div class="hero-ctas">
+                    <a href="#simulador" class="btn">
+                        Simular minha economia
+                        <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20de%20energia%20solar."
+                        class="btn btn-ghost" target="_blank" rel="noopener" data-track="whatsapp">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        Falar no WhatsApp
+                    </a>
                 </div>
 
             </div>
+
+            <ul class="hero-proof">
+                <li>
+                    <strong>Até 80%</strong>
+                    <span>de economia na conta de luz</span>
+                </li>
+                <li>
+                    <strong>Segura e certificada</strong>
+                    <span>instalação feita por engenheiros</span>
+                </li>
+                <li>
+                    <strong>Sem baterias</strong>
+                    <span>o excedente vira crédito na rede</span>
+                </li>
+            </ul>
         </div>
     </section>
 
-    <!-- Sobre Section -->
-    <section class="sobre" id="sobre">
-        <div class="container">
-            <div class="sobre-content reverse">
-                <div class="sobre-img fade-in">
-                    <div class="carousel-container">
-                        <div class="carousel-slide active">
-                            <img src="images/sobre1.webp" alt="Painéis solares instalados pela Esolution"
-                                width="1200" height="800">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/sobre2.webp" alt="Projeto de energia solar da Esolution"
-                                width="1200" height="800" loading="lazy">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/sobre3.webp" alt="Obra de engenharia da Esolution"
-                                width="1200" height="800" loading="lazy">
-                        </div>
-                        <div class="carousel-dots">
-                            <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
-                            <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
-                            <button type="button" class="carousel-dot" data-index="2" aria-label="Foto 3"></button>
-                        </div>
+    <!-- Simulador Section -->
+    <section class="simulador" id="simulador">
+        <div class="container simulador-grid">
+
+            <div class="simulador-intro fade-in">
+                <h2>Quanto você economizaria?</h2>
+                <p>
+                    Digite o valor médio da sua conta de luz e veja, na hora, uma estimativa da
+                    economia com energia solar no primeiro ano.
+                </p>
+                <ul class="simulador-dicas">
+                    <li><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>Use a média dos últimos meses, que fica no histórico da própria conta.</li>
+                    <li><i class="fab fa-whatsapp" aria-hidden="true"></i>Depois, envie o resultado pelo WhatsApp e receba um orçamento com o sistema certo para o seu consumo.</li>
+                </ul>
+            </div>
+
+            <form class="simulador-box fade-in delay-1" id="simuladorForm" novalidate>
+
+                <div class="form-group">
+                    <label for="consumo">Valor médio da sua conta mensal</label>
+                    <div class="input-moeda">
+                        <span aria-hidden="true">R$</span>
+                        <input
+                            type="number"
+                            id="consumo"
+                            min="1"
+                            step="0.01"
+                            inputmode="decimal"
+                            placeholder="500,00">
                     </div>
                 </div>
-                <div class="sobre-text fade-in delay-1">
-                    <h2>Quem Somos?</h2>
-                    <p>A Esolution é uma empresa de engenharia que combina experiência, tecnologia e inovação para desenvolver soluções mais seguras, eficientes e sustentáveis.
-                        Com uma equipe de profissionais especializados e atuação em diferentes segmentos, buscamos oferecer serviços de alto padrão, sempre com foco em qualidade, pontualidade e excelência.
-                    </p>
-                    <p>
-                    Tecnologia, experiência e eficiência para transformar projetos em resultados.
-                    </p>
+
+                <button type="submit" class="btn btn-block" id="btnCalcular" disabled>
+                    Calcular economia
+                </button>
+
+                <div class="resultado" aria-live="polite">
+
+                    <div class="resultado-destaque">
+                        <small>Economia estimada no 1º ano</small>
+                        <p id="economiaAnual">—</p>
+                    </div>
+
+                    <dl class="resultado-detalhes">
+                        <div>
+                            <dt>Economia por mês</dt>
+                            <dd id="economiaMensal">—</dd>
+                        </div>
+                        <div>
+                            <dt>Nova conta mensal</dt>
+                            <dd id="novaConta">—</dd>
+                        </div>
+                        <div>
+                            <dt>Nova conta no ano</dt>
+                            <dd id="novaContaAnual">—</dd>
+                        </div>
+                        <div>
+                            <dt>Consumo estimado</dt>
+                            <dd id="resultado">—</dd>
+                        </div>
+                    </dl>
+
                 </div>
-            </div>
+
+                <a class="btn btn-whatsapp btn-block" id="btnOrcamento" href="https://wa.me/5585981546006"
+                    target="_blank" rel="noopener" data-track="whatsapp" hidden>
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                    Receber orçamento no WhatsApp
+                </a>
+
+                <p class="simulador-aviso">
+                    Estimativa com base em valores médios de tarifa. A economia real depende do seu consumo,
+                    do local e do projeto.
+                </p>
+
+            </form>
+
         </div>
     </section>
 
     <!-- Sistema Section -->
-    <section class="estrutura section-alt" id="sistema">
+    <section class="sistema" id="sistema">
         <div class="container">
-            <div class="sobre-content">
-                <div class="sobre-img fade-in">
-                    <div class="carousel-container">
-                        <div class="carousel-slide active">
-                            <img src="images/fotovoltaico1.webp" alt="Como funciona o sistema fotovoltaico"
-                                width="1200" height="800" loading="lazy">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="images/fotovoltaico2.webp" alt="Componentes do sistema fotovoltaico"
-                                width="1200" height="800" loading="lazy">
-                        </div>
 
-                        <div class="carousel-dots">
-                            <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
-                            <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sobre-text fade-in delay-1">
+            <div class="split">
+                <div class="split-text fade-in">
                     <h2>Como o sistema funciona?</h2>
 
                     <p>
@@ -243,250 +305,285 @@
                     Tudo isso sem a necessidade de baterias, tornando a energia solar uma solução mais econômica, eficiente e acessível.
                     </p>
                 </div>
+
+                <div class="split-media fade-in delay-1">
+                    <div class="carousel-container carousel-contain">
+                        <div class="carousel-slide active">
+                            <img src="images/fotovoltaico1.webp" alt="Diagrama: painéis no telhado, inversor e ligação com a rede elétrica"
+                                width="1200" height="800" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/fotovoltaico2.webp" alt="Componentes de um sistema fotovoltaico conectado à rede"
+                                width="1200" height="800" loading="lazy">
+                        </div>
+
+                        <div class="carousel-dots">
+                            <button type="button" class="carousel-dot active" data-index="0" aria-label="Imagem 1"></button>
+                            <button type="button" class="carousel-dot" data-index="1" aria-label="Imagem 2"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="etapas">
+                <h3 class="etapas-titulo">Do orçamento à energia no seu telhado</h3>
+                <ol class="etapas-lista">
+                    <li class="fade-in">
+                        <span class="etapa-num" aria-hidden="true">01</span>
+                        <h4>Conta de luz</h4>
+                        <p>Você manda a sua conta pelo WhatsApp e calculamos o tamanho do sistema para o seu consumo.</p>
+                    </li>
+                    <li class="fade-in delay-1">
+                        <span class="etapa-num" aria-hidden="true">02</span>
+                        <h4>Visita técnica</h4>
+                        <p>Avaliamos o telhado, a posição do sol, as sombras e a parte elétrica do imóvel.</p>
+                    </li>
+                    <li class="fade-in delay-2">
+                        <span class="etapa-num" aria-hidden="true">03</span>
+                        <h4>Projeto e aprovação</h4>
+                        <p>Fazemos o projeto de engenharia e cuidamos da aprovação junto à distribuidora.</p>
+                    </li>
+                    <li class="fade-in delay-3">
+                        <span class="etapa-num" aria-hidden="true">04</span>
+                        <h4>Instalação</h4>
+                        <p>Equipe própria instala o sistema com segurança e deixa tudo pronto para gerar.</p>
+                    </li>
+                </ol>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section class="sobre" id="sobre">
+        <div class="container split split-reverse">
+            <div class="split-media fade-in">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <img src="images/sobre1.webp" alt="Painéis solares instalados pela Esolution em telhado"
+                            width="1200" height="800" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/sobre2.webp" alt="Projeto de energia solar da Esolution"
+                            width="1200" height="800" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="images/sobre3.webp" alt="Obra de engenharia da Esolution"
+                            width="1200" height="800" loading="lazy">
+                    </div>
+                    <div class="carousel-dots">
+                        <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
+                        <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
+                        <button type="button" class="carousel-dot" data-index="2" aria-label="Foto 3"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="split-text fade-in delay-1">
+                <h2>Quem somos</h2>
+                <p class="destaque">Tecnologia, experiência e eficiência para transformar projetos em resultados.</p>
+                <p>A Esolution é uma empresa de engenharia que combina experiência, tecnologia e inovação para desenvolver soluções mais seguras, eficientes e sustentáveis.</p>
+                <p>Com uma equipe de profissionais especializados e atuação em diferentes segmentos, buscamos oferecer serviços de alto padrão, sempre com foco em qualidade, pontualidade e excelência.</p>
             </div>
         </div>
     </section>
 
     <!-- Equipe Section -->
     <section class="equipe" id="equipe">
-        <div class="container">
+        <div class="container split">
 
-            <div class="sobre-content reverse">
+            <div class="split-text fade-in">
+                <h2>Nossa equipe</h2>
 
-                <div class="sobre-img fade-in">
-                    <div class="carousel-container">
+                <p>
+                    O corpo técnico da Esolution é constituído por profissionais com larga experiência nos setores de
+                    energia, superestrutura ferroviária e engenharia de incêndio.
+                </p>
 
-                        <div class="carousel-slide active">
-                            <img src="images/equipe1.webp" alt="Equipe da Esolution em campo"
-                                width="1200" height="800" loading="lazy">
-                        </div>
+                <p>
+                    Com uma política de valorização profissional, a empresa proporciona um ambiente corporativo
+                    dinâmico, ágil e flexível, capaz de estimular o crescimento da sua equipe e colaboradores,
+                    além da troca contínua de conhecimentos e experiências.
+                </p>
+            </div>
 
-                        <div class="carousel-slide">
-                            <img src="images/equipe2.webp" alt="Técnicos da Esolution durante instalação"
-                                width="1200" height="800" loading="lazy">
-                        </div>
+            <div class="split-media fade-in delay-1">
+                <div class="carousel-container">
 
-                        <div class="carousel-slide">
-                            <img src="images/equipe3.webp" alt="Profissionais da Esolution"
-                                width="1200" height="800" loading="lazy">
-                        </div>
-
-                        <div class="carousel-dots">
-                            <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
-                            <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
-                            <button type="button" class="carousel-dot" data-index="2" aria-label="Foto 3"></button>
-                        </div>
-
+                    <div class="carousel-slide active">
+                        <img src="images/equipe1.webp" alt="Equipe da Esolution em campo"
+                            width="1200" height="800" loading="lazy">
                     </div>
+
+                    <div class="carousel-slide">
+                        <img src="images/equipe2.webp" alt="Técnicos da Esolution durante instalação"
+                            width="1200" height="800" loading="lazy">
+                    </div>
+
+                    <div class="carousel-slide">
+                        <img src="images/equipe3.webp" alt="Profissionais da Esolution"
+                            width="1200" height="800" loading="lazy">
+                    </div>
+
+                    <div class="carousel-dots">
+                        <button type="button" class="carousel-dot active" data-index="0" aria-label="Foto 1"></button>
+                        <button type="button" class="carousel-dot" data-index="1" aria-label="Foto 2"></button>
+                        <button type="button" class="carousel-dot" data-index="2" aria-label="Foto 3"></button>
+                    </div>
+
                 </div>
-
-                <div class="sobre-text fade-in delay-1">
-
-                    <h2>Nossa Equipe</h2>
-
-                    <p>
-                        O corpo técnico da Esolution é constituído por profissionais com larga experiência nos setores de
-                        energia, superestrutura ferroviária e engenharia de incêndio.
-                    </p>
-
-                    <p>
-                        Com uma política de valorização profissional, a empresa proporciona um ambiente corporativo
-                        dinâmico, ágil e flexível, capaz de estimular o crescimento da sua equipe e colaboradores,
-                        além da troca contínua de conhecimentos e experiências.
-                    </p>
-
-                </div>
-
             </div>
 
         </div>
     </section>
 
     <!-- Missão Section -->
-    <section class="estrutura section-alt" id="missao">
-        <div class="container">
-            <div class="sobre-content">
+    <section class="missao" id="missao">
+        <!-- Sem autoplay: script.js dá play só quando o vídeo entra na tela -->
+        <video
+            class="missao-video"
+            src="images/Video.mp4"
+            width="848"
+            height="478"
+            preload="none"
+            muted
+            loop
+            playsinline
+            aria-hidden="true">
+        </video>
+        <div class="container missao-content fade-in">
+            <h2>Nossa missão</h2>
+            <p>Oferecer as melhores práticas da engenharia, na execução de obras e projetos de infraestrutura, buscando
+            sempre o desenvolvimento sustentável, com respeito ao meio ambiente, o crescimento e o bem-estar de seus
+            colaboradores e a satisfação de seus clientes.
+            </p>
+        </div>
+    </section>
 
-                <div class="sobre-img fade-in">
-                    <!-- Sem autoplay: script.js dá play só quando o vídeo entra na tela -->
-                    <video
-                        src="images/Video.mp4"
-                        width="848"
-                        height="478"
-                        preload="none"
-                        muted
-                        loop
-                        playsinline
-                        aria-label="Vídeo institucional da Esolution">
-                    </video>
-                </div>
-                <div class="sobre-text fade-in delay-1">
-                    <h2>Nossa Missão</h2>
-                    <p>Oferecer as melhores práticas da engenharia, na execução de obras e projetos de infraestrutura, buscando
-                    sempre o desenvolvimento sustentável, com respeito ao meio ambiente, o crescimento e o bem-estar de seus
-                    colaboradores e a satisfação de seus clientes.
-                    </p>
-                </div>
+    <!-- Dúvidas Section -->
+    <section class="duvidas" id="duvidas">
+        <div class="container duvidas-grid">
+            <div class="duvidas-intro fade-in">
+                <h2>Dúvidas frequentes</h2>
+                <p>O que todo mundo pergunta antes de colocar energia solar em casa. Ficou alguma dúvida? Fale com a gente.</p>
+                <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20energia%20solar."
+                    class="link-seta" target="_blank" rel="noopener" data-track="whatsapp">
+                    Perguntar no WhatsApp <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="faq fade-in delay-1">
+                <details>
+                    <summary>A energia solar funciona em dias nublados?</summary>
+                    <p>Funciona, com produção menor. O sistema é dimensionado pela média de sol do ano inteiro, e o Ceará está entre os lugares com mais sol do Brasil.</p>
+                </details>
+                <details>
+                    <summary>E à noite, de onde vem a energia?</summary>
+                    <p>Da rede da distribuidora. O que o sistema gera a mais durante o dia vira créditos de energia, que abatem o consumo da noite e dos meses com menos sol.</p>
+                </details>
+                <details>
+                    <summary>Preciso comprar baterias?</summary>
+                    <p>Não. No sistema conectado à rede, os créditos de energia fazem o papel da bateria, o que deixa o investimento menor.</p>
+                </details>
+                <details>
+                    <summary>Minha conta de luz vai zerar?</summary>
+                    <p>Não. Continua a cobrança mínima da distribuidora (custo de disponibilidade) e, pelas regras atuais, uma parte do uso da rede. Por isso a economia é de até 80%, e não de 100%.</p>
+                </details>
+                <details>
+                    <summary>Quanto tempo dura um sistema de energia solar?</summary>
+                    <p>Os painéis costumam durar mais de 25 anos. O inversor tem vida útil menor e pode precisar ser trocado ao longo desse período.</p>
+                </details>
+                <details>
+                    <summary>Como eu começo?</summary>
+                    <p>Faça a <a href="#simulador">simulação</a> ou mande uma foto da sua conta de luz pelo WhatsApp. A partir dela calculamos o sistema e combinamos a visita técnica.</p>
+                </details>
             </div>
         </div>
     </section>
 
-    <!-- Simulador Section -->
-    <section class="simulador" id="simulador">
-        <div class="container">
-
-            <div class="simulador-grid">
-
-                <form class="simulador-box" id="simuladorForm" novalidate>
-
-                    <h2>Simule sua Economia</h2>
-
-                    <p>
-                    Informe o valor médio da sua conta de energia e veja uma estimativa de economia com energia solar.
-                    </p>
-
-                    <div class="form-group">
-                        <label for="consumo">Valor da sua conta mensal</label>
-                        <div class="input-moeda">
-                            <span aria-hidden="true">R$</span>
-                            <input
-                                type="number"
-                                id="consumo"
-                                min="1"
-                                step="0.01"
-                                inputmode="decimal"
-                                placeholder="Ex.: 500">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn" id="btnCalcular" disabled>
-                        Calcular economia
-                    </button>
-
-                    <div aria-live="polite">
-
-                        <div class="economia-item">
-                            <small>Consumo estimado</small>
-                            <h3 id="resultado">0 kWh/mês</h3>
-                        </div>
-
-                        <div class="economia-item">
-                            <small>Nova Conta Mensal</small>
-                            <h3 id="novaConta">R$ 0,00</h3>
-                        </div>
-
-                        <div class="economia-item">
-                            <small>Nova Conta Anual</small>
-                            <h3 id="novaContaAnual">R$ 0,00</h3>
-                        </div>
-
-                        <div class="economia-item">
-                            <small>Economia Mensal</small>
-                            <h3 id="economiaMensal">R$ 0,00</h3>
-                        </div>
-
-                        <div class="economia-item destaque">
-                            <small>Economia no 1º ano</small>
-                            <h3 id="economiaAnual">R$ 0,00</h3>
-                        </div>
-
-                    </div>
-
-                    <a class="btn btn-whatsapp" id="btnOrcamento" href="https://wa.me/5585981546006"
-                        target="_blank" rel="noopener" data-track="whatsapp" hidden>
-                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        Receber orçamento no WhatsApp
-                    </a>
-
-                    <p class="simulador-aviso">
-                        Estimativa com base em valores médios de tarifa. A economia real depende do seu consumo,
-                        do local e do projeto.
-                    </p>
-
-                </form>
-
-            </div>
-
+    <!-- Chamada final -->
+    <section class="cta-final">
+        <div class="container cta-final-inner fade-in">
+            <h2>Mande sua conta de luz. A gente faz as contas.</h2>
+            <p>Uma foto da conta pelo WhatsApp já basta para começarmos o seu orçamento.</p>
+            <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20energia%20solar.%20Vou%20enviar%20minha%20conta%20de%20luz."
+                class="btn btn-dark" target="_blank" rel="noopener" data-track="whatsapp">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                Enviar minha conta
+            </a>
         </div>
     </section>
 
     <!-- Contato Section -->
     <section class="contato" id="contato">
-        <div class="container">
+        <div class="container contato-grid">
+
             <div class="contato-info fade-in">
                 <h2>Contato</h2>
-                <p>Fale conosco ou venha nos visitar</p>
-            </div>
+                <p class="contato-sub">Fale conosco ou venha nos visitar.</p>
 
-            <div class="contato-container">
-
-                <div class="contato-info fade-in">
-                    <h3>Informações</h3>
-
-                    <div class="contato-item">
-                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                        <div class="contato-text">
-                            <h4>Endereço</h4>
-                            <p>
-                                Rua Zildênia, 1166 - Sala 05 Amador - Eusébio/CE
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="contato-item">
+                <ul class="contato-lista">
+                    <li>
                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        <div class="contato-text">
-                            <h4>WhatsApp</h4>
+                        <div>
+                            <h3>WhatsApp</h3>
                             <a href="https://wa.me/5585981546006?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento%20de%20energia%20solar."
                                 target="_blank" rel="noopener" data-track="whatsapp">
                                 (85) 98154-6006
                             </a>
                         </div>
-                    </div>
+                    </li>
 <!--
-                    <div class="contato-item">
+                    <li>
                         <i class="fab fa-instagram"></i>
-                        <div class="contato-text">
-                            <h4>Instagram</h4>
+                        <div>
+                            <h3>Instagram</h3>
                             <a href="https://www.instagram.com/esolution_engenharia/"
                                 target="_blank">
                                 @esolution_engenharia
                             </a>
                         </div>
-                    </div>
+                    </li>
 -->
-                    <div class="contato-item">
+                    <li>
                         <i class="fas fa-envelope" aria-hidden="true"></i>
-                        <div class="contato-text">
-                            <h4>E-mail</h4>
+                        <div>
+                            <h3>E-mail</h3>
                             <a href="mailto:juliano@esolut.eng.br" data-track="email">
                                 juliano@esolut.eng.br
                             </a>
                         </div>
-                    </div>
-
-                </div>
-
-                <div class="mapa fade-in delay-1">
-                    <iframe
-                        src="https://www.google.com/maps?q=Rua+Zild%C3%AAnia,+1166+-+Sala+05,+Amador,+Eus%C3%A9bio,+CE&output=embed"
-                        title="Mapa com a localização da Esolution Engenharia"
-                        width="600"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="strict-origin-when-cross-origin">
-                    </iframe>
-                </div>
-
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <div>
+                            <h3>Endereço</h3>
+                            <p>Rua Zildênia, 1166 - Sala 05, Amador, Eusébio/CE</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
+
+            <div class="mapa fade-in delay-1">
+                <iframe
+                    src="https://www.google.com/maps?q=Rua+Zild%C3%AAnia,+1166+-+Sala+05,+Amador,+Eus%C3%A9bio,+CE&output=embed"
+                    title="Mapa com a localização da Esolution Engenharia"
+                    width="600"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin">
+                </iframe>
+            </div>
+
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer>
-        <div class="container">
+        <div class="container footer-inner">
             <img src="images/EsolutionLogo1.webp" alt="Esolution Engenharia" class="footer-logo" width="700"
                 height="187" loading="lazy">
             <div class="social-links">

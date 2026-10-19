@@ -42,7 +42,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // Navegação do menu
-document.querySelectorAll('.nav-menu a').forEach(link => {
+document.querySelectorAll('.nav-menu a[href^="#"]').forEach(link => {
 
     link.addEventListener('click', function (e) {
 
