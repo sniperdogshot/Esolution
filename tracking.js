@@ -80,6 +80,18 @@ function trackEmailClick() {
   if (window.fbq) fbq('trackCustom', 'EmailClick');
 }
 
+// Cada cálculo no simulador (conversão de topo para os anúncios)
+function trackSimulacao(valorConta) {
+  if (window.gtag) {
+    gtag('event', 'simulacao', {
+      event_category: 'Simulador',
+      value: Math.round(valorConta),
+      currency: 'BRL'
+    });
+  }
+  if (window.fbq) fbq('trackCustom', 'Simulacao', { value: Math.round(valorConta), currency: 'BRL' });
+}
+
 document.querySelectorAll('[data-track]').forEach(link => {
   link.addEventListener('click', () => {
     if (link.dataset.track === 'whatsapp') trackWhatsAppClick();
