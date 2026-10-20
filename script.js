@@ -278,7 +278,40 @@ function calcularEconomia() {
     btnOrcamento.href =
         "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(mensagem);
     btnOrcamento.hidden = false;
+
+    if (window.trackSimulacao) trackSimulacao(valorContaMensal);
 }
+
+// Formulário do hero: leva o valor para o simulador completo e mostra o resultado
+document.getElementById('heroForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const valor = document.getElementById('heroConta').value;
+
+    campoConta.value = valor;
+    btnCalcular.disabled = !(parseFloat(valor) > 0);
+
+    if (btnCalcular.disabled) {
+        document.getElementById('heroConta').focus();
+        return;
+    }
+
+    calcularEconomia();
+
+    // Rola até o resultado, para o botão do WhatsApp ficar à vista também no celular
+    const destino = document.querySelector('.resultado');
+    window.scrollTo({
+        top: destino.getBoundingClientRect().top + window.pageYOffset - 90,
+        behavior: 'smooth'
+    });
+});
+
+// Barra fixa do celular: só aparece depois que o hero sai da tela
+const barraAcao = document.getElementById('barraAcao');
+
+new IntersectionObserver((entries) => {
+    barraAcao.classList.toggle('visivel', !entries[0].isIntersecting);
+}, { threshold: 0.15 }).observe(document.querySelector('.hero'));
 
 campoConta.addEventListener('input', () => {
     btnCalcular.disabled = !(parseFloat(campoConta.value) > 0);
