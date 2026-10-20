@@ -1,5 +1,7 @@
 [build]
   command = "npm run build"
+  # Arquivos estáticos gerados pelo build; o SSR vai em .netlify/functions-internal.
+  publish = "dist"
 
 # URL antiga da política de privacidade (site estático).
 [[redirects]]
