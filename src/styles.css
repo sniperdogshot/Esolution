@@ -54,7 +54,7 @@
   --secondary: oklch(0.282 0.041 177);
   --secondary-foreground: oklch(0.97 0.007 124.4);
   --muted: oklch(0.282 0.041 177);
-  --muted-foreground: oklch(0.854 0.019 161);
+  --muted-foreground: oklch(0.92 0.019 161);
   --accent: oklch(0.706 0.13 177.9);
   --accent-foreground: oklch(0.218 0.033 174.3);
   --brand: oklch(0.706 0.13 177.9);
@@ -64,19 +64,35 @@
   --field-foreground: oklch(0.218 0.033 174.3);
   --destructive: oklch(0.65 0.2 25);
   --destructive-foreground: oklch(0.97 0.007 124.4);
-  --border: oklch(0.97 0.007 124.4 / 14%);
-  --input: oklch(0.97 0.007 124.4 / 20%);
+  --border: oklch(0.97 0.007 124.4 / 20%);
+  --input: oklch(0.97 0.007 124.4 / 25%);
   --ring: oklch(0.841 0.177 130.3);
-  --hero-fade: linear-gradient(90deg, oklch(0.218 0.033 174.3 / 0.96) 0%, oklch(0.218 0.033 174.3 / 0.8) 45%, oklch(0.218 0.033 174.3 / 0.25) 100%);
-  --hero-fade-mobile: linear-gradient(180deg, oklch(0.218 0.033 174.3 / 0.7) 0%, oklch(0.218 0.033 174.3 / 0.92) 60%, oklch(0.218 0.033 174.3) 100%);
+  --hero-fade: linear-gradient(
+    90deg,
+    oklch(0.218 0.033 174.3 / 0.96) 0%,
+    oklch(0.218 0.033 174.3 / 0.8) 45%,
+    oklch(0.218 0.033 174.3 / 0.25) 100%
+  );
+  --hero-fade-mobile: linear-gradient(
+    180deg,
+    oklch(0.218 0.033 174.3 / 0.7) 0%,
+    oklch(0.218 0.033 174.3 / 0.92) 60%,
+    oklch(0.218 0.033 174.3) 100%
+  );
   --video-dim: oklch(0.218 0.033 174.3 / 0.78);
   --shadow-lift: 0 18px 40px -18px oklch(0.1 0.03 175 / 0.8);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; overflow-x: hidden; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    overflow-x: hidden;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -84,54 +100,142 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, .display { font-weight: 800; font-stretch: 115%; letter-spacing: -0.015em; line-height: 1.05; }
-  :focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; border-radius: 6px; }
-  summary::-webkit-details-marker { display: none; }
+  h1,
+  h2,
+  h3,
+  .display {
+    font-weight: 800;
+    font-stretch: 115%;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+  }
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
 }
 
-@utility logo-bar { background: linear-gradient(90deg, var(--brand), var(--brand-2)); }
-@utility hero-fade { background: var(--hero-fade-mobile); @media (min-width: 768px) { background: var(--hero-fade); } }
-@utility video-dim { background: var(--video-dim); }
-@utility shadow-lift { box-shadow: var(--shadow-lift); }
-@utility ease-soft { transition-timing-function: var(--ease-out); }
+@utility logo-bar {
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+}
+@utility hero-fade {
+  background: var(--hero-fade-mobile);
+  @media (min-width: 768px) {
+    background: var(--hero-fade);
+  }
+}
+@utility video-dim {
+  background: var(--video-dim);
+}
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+@utility ease-soft {
+  transition-timing-function: var(--ease-out);
+}
 
 @utility reveal {
-  opacity: 0; transform: translateY(18px);
-  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
-  &.is-visible { opacity: 1; transform: none; }
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .reveal { opacity: 1; transform: none; }
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ---- visual polish ---- */
 @utility glow-tr {
-  background-image: radial-gradient(60% 50% at 100% 0%, color-mix(in oklab, var(--brand) 18%, transparent), transparent 70%);
+  background-image: radial-gradient(
+    60% 50% at 100% 0%,
+    color-mix(in oklab, var(--brand) 18%, transparent),
+    transparent 70%
+  );
 }
 @utility glow-bl {
-  background-image: radial-gradient(55% 50% at 0% 100%, color-mix(in oklab, var(--brand-2) 16%, transparent), transparent 70%);
+  background-image: radial-gradient(
+    55% 50% at 0% 100%,
+    color-mix(in oklab, var(--brand-2) 16%, transparent),
+    transparent 70%
+  );
 }
 @utility grain {
   position: relative;
   &::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .06; z-index: 0;
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    z-index: 0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
 @utility sun-ring {
-  background: radial-gradient(circle, color-mix(in oklab, var(--primary) 35%, transparent) 0%, transparent 62%);
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--primary) 35%, transparent) 0%,
+    transparent 62%
+  );
   animation: sun-pulse 7s var(--ease-out) infinite alternate;
 }
 @utility marquee {
   animation: marquee 32s linear infinite;
 }
 @utility panel-ring {
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 25%, transparent), 0 30px 60px -25px color-mix(in oklab, var(--primary) 35%, transparent), var(--shadow-lift);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--primary) 25%, transparent),
+    0 30px 60px -25px color-mix(in oklab, var(--primary) 35%, transparent),
+    var(--shadow-lift);
 }
-@keyframes sun-pulse { from { transform: scale(.9); opacity: .7; } to { transform: scale(1.08); opacity: 1; } }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes ken-burns { from { transform: scale(1.08); } to { transform: scale(1); } }
-@utility ken-burns { animation: ken-burns 14s var(--ease-out) both; }
+@keyframes sun-pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes ken-burns {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@utility ken-burns {
+  animation: ken-burns 14s var(--ease-out) both;
+}

@@ -1,4 +1,5 @@
 import { getGaId } from "./ga.functions";
+import { toast } from "sonner";
 
 export const CONSENT_KEY = "esolutionCookieConsent";
 const PIXEL_ID = "1281633922901130";
@@ -8,7 +9,13 @@ type AnyFn = (...args: unknown[]) => void;
 declare global {
   interface Window {
     gtag?: AnyFn;
-    fbq?: AnyFn & { callMethod?: AnyFn; queue?: unknown[]; loaded?: boolean; version?: string; push?: AnyFn };
+    fbq?: AnyFn & {
+      callMethod?: AnyFn;
+      queue?: unknown[];
+      loaded?: boolean;
+      version?: string;
+      push?: AnyFn;
+    };
     _fbq?: unknown;
     dataLayer?: unknown[];
   }
@@ -33,11 +40,26 @@ export async function loadTracking() {
   addScript(`https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`);
 
   // Meta Pixel
-  const fbq: any = function (...args: unknown[]) {
-    fbq.callMethod ? fbq.callMethod(...args) : fbq.queue.push(args);
+  type FbqFn = (...args: unknown[]) => void;
+  const fbq = function (...args: unknown[]) {
+    if (fbq.callMethod) {
+      fbq.callMethod(...args);
+    } else {
+      fbq.queue.push(args);
+    }
+  } as FbqFn & {
+    callMethod?: FbqFn;
+    queue?: unknown[];
+    loaded?: boolean;
+    version?: string;
+    push?: FbqFn;
   };
-  fbq.push = fbq; fbq.loaded = true; fbq.version = "2.0"; fbq.queue = [];
-  window.fbq = fbq; window._fbq = fbq;
+  fbq.push = fbq;
+  fbq.loaded = true;
+  fbq.version = "2.0";
+  fbq.queue = [];
+  window.fbq = fbq;
+  window._fbq = fbq;
   addScript("https://connect.facebook.net/en_US/fbevents.js");
   fbq("init", PIXEL_ID);
   fbq("track", "PageView");
@@ -62,6 +84,7 @@ export async function loadTracking() {
 export function trackWhatsApp() {
   window.gtag?.("event", "clique_whatsapp");
   window.fbq?.("track", "Contact");
+  toast("Abrindo WhatsApp...", { duration: 2000 });
 }
 export function trackEmail() {
   window.gtag?.("event", "clique_email");

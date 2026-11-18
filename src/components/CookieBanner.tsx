@@ -28,15 +28,24 @@ export function CookieBanner() {
     >
       <p className="text-sm leading-relaxed text-muted-foreground">
         Usamos cookies para medir visitas e anúncios, só se você permitir.{" "}
-        <Link to="/privacidade" className="font-semibold text-foreground underline underline-offset-4">
+        <Link
+          to="/privacidade"
+          className="font-semibold text-foreground underline underline-offset-4"
+        >
           Política de Privacidade
         </Link>
       </p>
       <div className="mt-4 flex gap-3">
-        <button onClick={() => choose("recusado")} className="min-h-12 flex-1 rounded-full border px-5 font-semibold text-foreground transition-colors hover:bg-surface">
+        <button
+          onClick={() => choose("recusado")}
+          className="min-h-12 flex-1 rounded-full border px-5 font-semibold text-foreground transition-colors hover:bg-surface"
+        >
           Recusar
         </button>
-        <button onClick={() => choose("aceito")} className="min-h-12 flex-1 rounded-full bg-primary px-5 font-bold text-primary-foreground transition-transform ease-soft hover:-translate-y-0.5">
+        <button
+          onClick={() => choose("aceito")}
+          className="min-h-12 flex-1 rounded-full bg-primary px-5 font-bold text-primary-foreground transition-transform ease-soft hover:-translate-y-0.5"
+        >
           Aceitar
         </button>
       </div>

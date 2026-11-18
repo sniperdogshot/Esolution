@@ -22,7 +22,10 @@ function NotFoundComponent() {
         <h1 className="text-7xl text-foreground">404</h1>
         <h2 className="mt-4 text-xl text-foreground">Página não encontrada</h2>
         <div className="mt-6">
-          <Link to="/" className="inline-flex min-h-12 items-center rounded-full bg-primary px-6 font-semibold text-primary-foreground">
+          <Link
+            to="/"
+            className="inline-flex min-h-12 items-center rounded-full bg-primary px-6 font-semibold text-primary-foreground"
+          >
             Voltar ao início
           </Link>
         </div>
@@ -42,7 +45,10 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
       <div className="max-w-md text-center">
         <h1 className="text-xl text-foreground">A página não carregou</h1>
         <button
-          onClick={() => { router.invalidate(); reset(); }}
+          onClick={() => {
+            router.invalidate();
+            reset();
+          }}
           className="mt-6 inline-flex min-h-12 items-center rounded-full bg-primary px-6 font-semibold text-primary-foreground"
         >
           Tentar de novo
@@ -65,9 +71,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/images/favicon.png", type: "image/png" },
+      { rel: "manifest", href: "/manifest.json" },
+      { rel: "apple-touch-icon", href: "/images/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -103,6 +114,33 @@ function RootComponent() {
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
+  }, []);
+
+  // Register Service Worker
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/sw.js", { scope: "/" })
+        .then((registration) => {
+          console.log("Service Worker registered:", registration.scope);
+
+          // Check for updates
+          registration.addEventListener("updatefound", () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener("statechange", () => {
+                if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+                  console.log("New version available, please refresh");
+                  // Could show a toast/notification here
+                }
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          console.error("Service Worker registration failed:", error);
+        });
+    }
   }, []);
 
   return (

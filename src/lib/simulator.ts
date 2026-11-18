@@ -1,4 +1,4 @@
-export const WHATSAPP_NUMBER = "5585981546006";
+import { WHATSAPP_NUMBER } from "./constants.ts";
 
 export function waLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -15,8 +15,7 @@ export interface SimResult {
 export function simulate(valorConta: number): SimResult {
   const consumoMensal = valorConta / 0.9848;
   const consumoAnual = consumoMensal * 12;
-  const economiaAnual =
-    consumoAnual * (0.35 * 0.9848 + 0.65 * 0.342 + 0.65 * 0.6428 * 0.35);
+  const economiaAnual = consumoAnual * (0.35 * 0.9848 + 0.65 * 0.342 + 0.65 * 0.6428 * 0.35);
   const economiaMensal = economiaAnual / 12;
   const novaContaMensal = valorConta - economiaMensal;
   const novaContaAnual = valorConta * 12 - economiaAnual;

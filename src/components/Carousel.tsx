@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Props {
@@ -9,48 +9,112 @@ interface Props {
 
 export function Carousel({ images, fit = "cover", label }: Props) {
   const [i, setI] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const n = images.length;
-  const go = (d: number) => setI((v) => (v + d + n) % n);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const go = useCallback((d: number) => setI((v) => (v + d + n) % n), [n]);
+
+  const startAutoPlay = useCallback(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (intervalRef.current) return;
+    intervalRef.current = setInterval(() => setI((v) => (v + 1) % n), 6000);
+  }, [n]);
+
+  const stopAutoPlay = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = setInterval(() => setI((v) => (v + 1) % n), 6000);
-    return () => clearInterval(t);
-  }, [n, i]);
+    startAutoPlay();
+    return () => stopAutoPlay();
+  }, [startAutoPlay, stopAutoPlay]);
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    stopAutoPlay();
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+    startAutoPlay();
+  };
+
+  const handleFocusIn = () => {
+    setIsPaused(true);
+    stopAutoPlay();
+  };
+
+  const handleFocusOut = () => {
+    setIsPaused(false);
+    startAutoPlay();
+  };
 
   return (
-    <div role="region" aria-roledescription="carrossel" aria-label={label} className="relative">
-      <div className={`relative overflow-hidden rounded-2xl ${fit === "contain" ? "bg-surface-2" : ""} aspect-[4/3]`}>
+    <div
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={label}
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocusIn={handleFocusIn}
+      onFocusOut={handleFocusOut}
+    >
+      <div
+        className={`relative overflow-hidden rounded-2xl ${fit === "contain" ? "bg-surface-2" : ""} aspect-[4/3]`}
+        aria-live="polite"
+        aria-atomic="true"
+      >
         {images.map((img, k) => (
-          <img
-            key={img.src}
-            src={img.src}
-            alt={img.alt}
-            loading="lazy"
-            aria-hidden={k !== i}
-            className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-soft ${fit === "contain" ? "object-contain p-3" : "object-cover"} ${k === i ? "opacity-100" : "opacity-0"} ${fit === "cover" ? "group-hover:scale-105 transition-[opacity,transform]" : ""}`}
-          />
+          <picture key={img.src}>
+            <source srcSet={`${img.src.replace(/\.webp$/, ".avif")}`} type="image/avif" />
+            <source srcSet={img.src} type="image/webp" />
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading={k === 0 ? "eager" : "lazy"}
+              aria-hidden={k !== i}
+              className={`absolute inset-0 h-full w-full transition-opacity duration-700 ease-soft ${fit === "contain" ? "object-contain p-3" : "object-cover"} ${k === i ? "opacity-100" : "opacity-0"} ${fit === "cover" ? "group-hover:scale-105 transition-[opacity,transform]" : ""}`}
+            />
+          </picture>
         ))}
       </div>
       <div className="mt-4 flex items-center justify-between">
-        <div className="flex gap-2">
+        <div className="flex gap-2" role="tablist" aria-label="Navegação do carrossel">
           {images.map((_, k) => (
             <button
               key={k}
+              role="tab"
               onClick={() => setI(k)}
-              aria-label={`Mostrar imagem ${k + 1}`}
-              aria-current={k === i}
-              className="flex h-12 w-8 items-center justify-center"
+              aria-label={`Ir para imagem ${k + 1} de ${n}`}
+              aria-selected={k === i}
+              aria-controls={`carousel-panel-${k}`}
+              id={`carousel-tab-${k}`}
+              className="flex h-12 w-8 items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <span className={`block h-1.5 rounded-full transition-all duration-500 ease-soft ${k === i ? "w-7 bg-primary" : "w-3 bg-muted-foreground/40"}`} />
+              <span
+                className={`block h-1.5 rounded-full transition-all duration-500 ease-soft ${k === i ? "w-7 bg-primary" : "w-3 bg-muted-foreground/40"}`}
+              />
             </button>
           ))}
         </div>
         <div className="flex gap-2">
-          <button onClick={() => go(-1)} aria-label="Imagem anterior" className="flex h-12 w-12 items-center justify-center rounded-full border text-foreground transition-colors hover:bg-surface-2">
+          <button
+            onClick={() => go(-1)}
+            aria-label={`Imagem anterior (${((i - 1 + n) % n) + 1} de ${n})`}
+            className="flex h-12 w-12 items-center justify-center rounded-full border text-foreground transition-colors hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <button onClick={() => go(1)} aria-label="Próxima imagem" className="flex h-12 w-12 items-center justify-center rounded-full border text-foreground transition-colors hover:bg-surface-2">
+          <button
+            onClick={() => go(1)}
+            aria-label={`Próxima imagem (${((i + 1) % n) + 1} de ${n})`}
+            className="flex h-12 w-12 items-center justify-center rounded-full border text-foreground transition-colors hover:bg-surface-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>
