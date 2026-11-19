@@ -1,5 +1,9 @@
 import "./lib/error-capture";
 
+// Import server functions to ensure they're registered
+import "@/lib/admin-auth";
+import "@/lib/admin-server";
+
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 

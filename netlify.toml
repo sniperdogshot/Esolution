@@ -3,6 +3,11 @@
   # Arquivos estáticos gerados pelo build; o SSR vai em .netlify/functions-internal.
   publish = "dist"
 
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+  publish = "dist"
+
 # URL antiga da política de privacidade (site estático).
 [[redirects]]
   from = "/privacidade.html"

@@ -10,11 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as AdminConversaoRouteImport } from './routes/admin.conversao'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
+import { Route as AdminMetricasRouteImport } from './routes/admin.metricas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin-login',
+  path: '/admin-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
@@ -22,30 +37,84 @@ const PrivacidadeRoute = PrivacidadeRouteImport.update({
   path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminConversaoRoute = AdminConversaoRouteImport.update({
+  id: '/conversao',
+  path: '/conversao',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMetricasRoute = AdminMetricasRouteImport.update({
+  id: '/metricas',
+  path: '/metricas',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin-login': typeof AdminLoginRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/admin/conversao': typeof AdminConversaoRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/metricas': typeof AdminMetricasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin-login': typeof AdminLoginRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/admin/conversao': typeof AdminConversaoRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/metricas': typeof AdminMetricasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin-login': typeof AdminLoginRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/admin/conversao': typeof AdminConversaoRoute
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/metricas': typeof AdminMetricasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacidade'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin-login'
+    | '/privacidade'
+    | '/admin/conversao'
+    | '/admin/leads'
+    | '/admin/metricas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacidade'
-  id: '__root__' | '/' | '/privacidade'
+  to:
+    | '/'
+    | '/admin'
+    | '/admin-login'
+    | '/privacidade'
+    | '/admin/conversao'
+    | '/admin/leads'
+    | '/admin/metricas'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/admin-login'
+    | '/privacidade'
+    | '/admin/conversao'
+    | '/admin/leads'
+    | '/admin/metricas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
 }
 
@@ -58,6 +127,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin-login': {
+      id: '/admin-login'
+      path: '/admin-login'
+      fullPath: '/admin-login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacidade': {
       id: '/privacidade'
       path: '/privacidade'
@@ -65,11 +148,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/conversao': {
+      id: '/admin/conversao'
+      path: '/conversao'
+      fullPath: '/admin/conversao'
+      preLoaderRoute: typeof AdminConversaoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/metricas': {
+      id: '/admin/metricas'
+      path: '/metricas'
+      fullPath: '/admin/metricas'
+      preLoaderRoute: typeof AdminMetricasRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminConversaoRoute: typeof AdminConversaoRoute
+  AdminLeadsRoute: typeof AdminLeadsRoute
+  AdminMetricasRoute: typeof AdminMetricasRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminConversaoRoute: AdminConversaoRoute,
+  AdminLeadsRoute: AdminLeadsRoute,
+  AdminMetricasRoute: AdminMetricasRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
   PrivacidadeRoute: PrivacidadeRoute,
 }
 export const routeTree = rootRouteImport
