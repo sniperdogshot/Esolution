@@ -15,6 +15,9 @@ import type {
   LeadsAumentoConsumo,
 } from "./admin-db";
 
+// DEBUG: Log when this module loads
+console.log("[admin-server.ts] Module loaded, registering server functions");
+
 // ============================================
 // TIPOS COMBINADOS
 // ============================================
@@ -33,33 +36,47 @@ export interface DashboardData {
 // ============================================
 
 export const getDashboardDataFn = createServerFn({ method: "GET" })
-  .validator(() => {})
+  .validator(() => {
+    console.log("[getDashboardDataFn] Validator called");
+  })
   .handler(async (): Promise<DashboardData> => {
-    // Executa todas as queries em paralelo no servidor (uma única conexão)
-    const [
-      metricas,
-      leadsPorEtapa,
-      leadsPorCidade,
-      leadsPorPeriodo,
-      leadsAumento,
-      leadsRecentes,
-    ] = await Promise.all([
-      getMetricasGerais(),
-      getLeadsPorEtapa(),
-      getLeadsPorCidade(10),
-      getLeadsPorPeriodo(30),
-      getLeadsAumentoConsumo(),
-      getLeadsRecentes(20),
-    ]);
+    console.log("[getDashboardDataFn] Handler called");
+    try {
+      // Executa todas as queries em paralelo no servidor (uma única conexão)
+      const [
+        metricas,
+        leadsPorEtapa,
+        leadsPorCidade,
+        leadsPorPeriodo,
+        leadsAumento,
+        leadsRecentes,
+      ] = await Promise.all([
+        getMetricasGerais(),
+        getLeadsPorEtapa(),
+        getLeadsPorCidade(10),
+        getLeadsPorPeriodo(30),
+        getLeadsAumentoConsumo(),
+        getLeadsRecentes(20),
+      ]);
 
-    return {
-      metricas,
-      leadsPorEtapa,
-      leadsPorCidade,
-      leadsPorPeriodo,
-      leadsAumento,
-      leadsRecentes,
-    };
+      const result = {
+        metricas,
+        leadsPorEtapa,
+        leadsPorCidade,
+        leadsPorPeriodo,
+        leadsAumento,
+        leadsRecentes,
+      };
+      console.log("[getDashboardDataFn] Success:", {
+        totalLeads: metricas.totalLeads,
+        etapaCount: leadsPorEtapa.length,
+        cidadeCount: leadsPorCidade.length
+      });
+      return result;
+    } catch (err) {
+      console.error("[getDashboardDataFn] ERROR:", err);
+      throw err;
+    }
   });
 
 // ============================================
@@ -100,4 +117,12 @@ export const getLeadsRecentesFn = createServerFn({ method: "GET" })
   .validator(() => {})
   .handler(async () => {
     return getLeadsRecentes(20);
+  });
+
+// TEST ENDPOINT - para debug
+export const testServerFn = createServerFn({ method: "GET" })
+  .validator(() => {})
+  .handler(async () => {
+    console.log("[testServerFn] Handler called");
+    return { ok: true, message: "Server function working!", timestamp: new Date().toISOString() };
   });

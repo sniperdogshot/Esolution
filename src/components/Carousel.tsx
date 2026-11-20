@@ -71,7 +71,6 @@ export function Carousel({ images, fit = "cover", label }: Props) {
       >
         {images.map((img, k) => (
           <picture key={img.src}>
-            <source srcSet={`${img.src.replace(/\.webp$/, ".avif")}`} type="image/avif" />
             <source srcSet={img.src} type="image/webp" />
             <img
               src={img.src}

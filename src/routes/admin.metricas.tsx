@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueries } from "@tanstack/react-query";
 import { Suspense, lazy, useState } from "react";
 import { Users, DollarSign, TrendingUp, Clock, RefreshCw } from "lucide-react";
-import { getDashboardDataFn } from "../../lib/admin-server";
-import type { DashboardData } from "../../lib/admin-server";
+import { getDashboardDataFn } from "@/lib/admin-server";
+import type { DashboardData } from "@/lib/admin-server";
 import { cn } from "@/lib/utils";
 
 // ============================================
@@ -24,13 +24,21 @@ function MetricasPage() {
   // ============================================
   const dashboardQuery = useQuery({
     queryKey: ["admin-dashboard-full"],
-    queryFn: () => getDashboardDataFn(),
+    queryFn: async () => {
+      console.log("[MetricasPage] Calling getDashboardDataFn...");
+      const result = await getDashboardDataFn();
+      console.log("[MetricasPage] Result:", result);
+      return result;
+    },
     staleTime: 60_000,        // 1 min cache
     gcTime: 5 * 60_000,       // 5 min garbage collection
     refetchOnWindowFocus: false,  // não refaz ao focar janela
+    retry: 1,
   });
 
   const isLoading = dashboardQuery.isLoading;
+  const isError = dashboardQuery.isError;
+  const error = dashboardQuery.error;
   const data = dashboardQuery.data;
 
   if (isLoading) {
@@ -39,6 +47,21 @@ function MetricasPage() {
         <SkeletonCards count={4} />
         <SkeletonCharts rows={2} />
         <SkeletonCards count={2} />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center py-12 text-red-500">
+        <p className="font-medium">Erro ao carregar dados</p>
+        <p className="text-sm mt-1">{error?.message || "Erro desconhecido"}</p>
+        <button
+          onClick={() => dashboardQuery.refetch()}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+        >
+          Tentar novamente
+        </button>
       </div>
     );
   }
@@ -76,6 +99,7 @@ function MetricasPage() {
           icon={Users}
           color="bg-blue-50 text-blue-600"
           iconColor="text-blue-600"
+          tooltip="Total de leads capturados pelo bot do WhatsApp desde o início"
         />
         <KPICard
           title="Finalizados"
@@ -84,6 +108,7 @@ function MetricasPage() {
           color="bg-green-50 text-green-600"
           iconColor="text-green-600"
           subtitle={`${taxaConversao}% conversão`}
+          tooltip="Leads que completaram todo o fluxo (etapas 'finalizado' ou 'encerrado')"
         />
         <KPICard
           title="Em Andamento"
@@ -91,6 +116,7 @@ function MetricasPage() {
           icon={Clock}
           color="bg-yellow-50 text-yellow-600"
           iconColor="text-yellow-600"
+          tooltip="Leads que ainda estão no fluxo (não finalizaram nem encerraram)"
         />
         <KPICard
           title="Valor Médio Conta"
@@ -98,6 +124,7 @@ function MetricasPage() {
           icon={DollarSign}
           color="bg-purple-50 text-purple-600"
           iconColor="text-purple-600"
+          tooltip="Média do valor da conta informado pelos leads que preencheram esse campo"
         />
       </div>
 
@@ -165,6 +192,7 @@ function KPICard({
   color,
   iconColor,
   subtitle,
+  tooltip,
 }: {
   title: string;
   value: string | number;
@@ -172,9 +200,16 @@ function KPICard({
   color: string;
   iconColor: string;
   subtitle?: string;
+  tooltip?: string;
 }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+    <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm relative group" style={{ cursor: tooltip ? "help" : "default" }}>
+      {tooltip && (
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-10 max-w-xs">
+          {tooltip}
+          <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
+        </div>
+      )}
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-gray-500">{title}</p>

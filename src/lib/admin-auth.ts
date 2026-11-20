@@ -1,5 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
+console.log("[admin-auth.ts] Module loaded, registering server functions");
+
 export const verifyAdminPasswordFn = createServerFn({ method: "POST" })
   .validator((data: unknown) => {
     console.log("[Admin Auth] Validator received:", JSON.stringify(data));

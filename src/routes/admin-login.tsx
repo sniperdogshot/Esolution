@@ -2,7 +2,7 @@ import { createFileRoute, useSearch } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { verifyAdminPasswordFn } from "../../lib/admin-auth";
+import { verifyAdminPasswordFn } from "@/lib/admin-auth";
 
 export const Route = createFileRoute("/admin-login")({
   component: AdminLogin,
