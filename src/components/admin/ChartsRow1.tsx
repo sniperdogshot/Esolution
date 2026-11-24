@@ -29,7 +29,28 @@ const ETAPA_COLORS: Record<string, string> = {
   inicio: "#9ca3af",
 };
 
-function Card({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+/** Nome amigável de cada etapa do bot (o banco guarda a chave). */
+const ETAPA_LABELS: Record<string, string> = {
+  inicio: "Início",
+  conta: "Aguardando valor da conta",
+  aumento_consumo: "Pergunta de aumento",
+  equipamento: "Informando equipamento",
+  cidade: "Informando cidade",
+  finalizado: "Finalizado",
+  encerrado: "Encerrado",
+};
+
+const etapaLabel = (e: string) => ETAPA_LABELS[e] ?? e;
+
+function Card({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
       <div className="mb-4">
@@ -44,29 +65,38 @@ function Card({ title, subtitle, children }: { title: string; subtitle?: string;
 export function ChartsRow1({ etapas, cidades }: ChartsRow1Props) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card title="Leads por Etapa do Funil" subtitle="Distribuição atual dos leads">
+      <Card
+        title="Em que pergunta cada lead está"
+        subtitle="Onde os leads pararam na conversa com o robô agora"
+      >
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={etapas} layout="vertical" margin={{ top: 10, right: 10, left: 60, bottom: 10 }}>
+            <BarChart
+              data={etapas}
+              layout="vertical"
+              margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
+            >
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis type="number" tick={{ fill: "#6b7280", fontSize: 12 }} />
+              <XAxis type="number" allowDecimals={false} tick={{ fill: "#6b7280", fontSize: 12 }} />
               <YAxis
                 type="category"
                 dataKey="etapa"
                 tick={{ fill: "#6b7280", fontSize: 12 }}
-                width={80}
+                tickFormatter={etapaLabel}
+                width={150}
               />
               <Tooltip
-                contentStyle={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "8px" }}
+                contentStyle={{
+                  backgroundColor: "white",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "8px",
+                }}
                 formatter={(value: number) => [value, "leads"]}
+                labelFormatter={etapaLabel}
               />
-              <Bar
-                dataKey="count"
-                radius={[0, 4, 4, 0]}
-                fill="#071f19"
-              >
-                {etapas.map((_, i) => (
-                  <Cell key={i} fill={ETAPA_COLORS[etapas[i]?.etapa] || COLORS[i % COLORS.length]} />
+              <Bar dataKey="count" radius={[0, 4, 4, 0]} fill="#071f19" maxBarSize={40}>
+                {etapas.map((e, i) => (
+                  <Cell key={i} fill={ETAPA_COLORS[e.etapa] || COLORS[i % COLORS.length]} />
                 ))}
               </Bar>
             </BarChart>
@@ -75,37 +105,58 @@ export function ChartsRow1({ etapas, cidades }: ChartsRow1Props) {
         <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-600">
           {etapas.map((e) => (
             <span key={e.etapa} className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded" style={{ backgroundColor: ETAPA_COLORS[e.etapa] || "#9ca3af" }} />
-              {e.etapa}: {e.count}
+              <span
+                className="w-3 h-3 rounded"
+                style={{ backgroundColor: ETAPA_COLORS[e.etapa] || "#9ca3af" }}
+              />
+              {etapaLabel(e.etapa)}: {e.count}
             </span>
           ))}
         </div>
       </Card>
 
-      <Card title="Leads por Cidade (Top 10)" subtitle="Onde estão os leads">
-        <div className="h-72">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={cidades} layout="vertical" margin={{ top: 10, right: 10, left: 80, bottom: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-              <XAxis type="number" tick={{ fill: "#6b7280", fontSize: 12 }} />
-              <YAxis
-                type="category"
-                dataKey="cidade"
-                tick={{ fill: "#6b7280", fontSize: 12 }}
-                width={100}
-              />
-              <Tooltip
-                contentStyle={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "8px" }}
-                formatter={(value: number) => [value, "leads"]}
-              />
-              <Bar dataKey="count" radius={[0, 4, 4, 0]} fill="#166534">
-                {cidades.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+      <Card title="Cidades dos leads" subtitle="As 10 cidades com mais pedidos de orçamento">
+        {cidades.length === 0 ? (
+          <div className="h-72 flex items-center justify-center text-sm text-gray-400">
+            Nenhum lead informou a cidade ainda.
+          </div>
+        ) : (
+          <div className="h-72">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={cidades}
+                layout="vertical"
+                margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                <XAxis
+                  type="number"
+                  allowDecimals={false}
+                  tick={{ fill: "#6b7280", fontSize: 12 }}
+                />
+                <YAxis
+                  type="category"
+                  dataKey="cidade"
+                  tick={{ fill: "#6b7280", fontSize: 12 }}
+                  width={100}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "white",
+                    border: "1px solid #e5e7eb",
+                    borderRadius: "8px",
+                  }}
+                  formatter={(value: number) => [value, "leads"]}
+                />
+                <Bar dataKey="count" radius={[0, 4, 4, 0]} fill="#166534" maxBarSize={40}>
+                  {cidades.map((_, i) => (
+                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </Card>
     </div>
   );

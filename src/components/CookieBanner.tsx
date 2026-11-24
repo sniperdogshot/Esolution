@@ -6,6 +6,8 @@ export function CookieBanner() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    // O painel interno não usa tracking nem precisa do aviso.
+    if (window.location.pathname.startsWith("/admin")) return;
     const v = localStorage.getItem(CONSENT_KEY);
     if (v === "aceito") void loadTracking();
     else if (v !== "recusado") setShow(true);

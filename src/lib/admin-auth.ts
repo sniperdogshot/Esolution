@@ -1,39 +1,35 @@
-import { createServerFn } from "@tanstack/react-start";
+import { createMiddleware, createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 
-console.log("[admin-auth.ts] Module loaded, registering server functions");
+import { checkPassword, endSession, hasValidSession, startSession } from "./admin-session.server";
 
-export const verifyAdminPasswordFn = createServerFn({ method: "POST" })
-  .validator((data: unknown) => {
-    console.log("[Admin Auth] Validator received:", JSON.stringify(data));
+/** Bloqueia a server function se não houver sessão de admin válida. */
+export const requireAdmin = createMiddleware({ type: "function" }).server(async ({ next }) => {
+  if (!hasValidSession()) {
+    throw new Error("Não autorizado");
+  }
+  return next();
+});
 
-    // Handle TanStack Start's RPC format: { data: { password: string } }
-    let password: unknown;
-
-    if (data && typeof data === "object" && "data" in data) {
-      const inner = (data as { data: unknown }).data;
-      if (inner && typeof inner === "object" && "password" in inner) {
-        password = (inner as { password: unknown }).password;
-      }
-    } else if (data && typeof data === "object" && "password" in data) {
-      // Direct format
-      password = (data as { password: unknown }).password;
+export const loginAdminFn = createServerFn({ method: "POST" })
+  .validator(z.object({ password: z.string().min(1).max(200) }))
+  .handler(async ({ data }) => {
+    if (!checkPassword(data.password)) {
+      console.warn("[admin] Login recusado: senha incorreta");
+      // Atrasa a resposta para dificultar tentativa e erro em massa.
+      await new Promise((r) => setTimeout(r, 800));
+      return { ok: false as const };
     }
-
-    if (typeof password !== "string") {
-      console.error("[Admin Auth] Invalid password format, received:", JSON.stringify(data));
-      throw new Error("Formato inválido: esperado { password: string }");
-    }
-
-    return { password };
-  })
-  .handler(async ({ data }: { data: { password: string } }) => {
-    console.log("[Admin Auth] Handler received:", data);
-    const password = data.password;
-    const validPassword = process.env.ADMIN_PASSWORD;
-
-    if (!validPassword) {
-      throw new Error("Configuração de autenticação inválida");
-    }
-
-    return password === validPassword;
+    startSession();
+    console.info("[admin] Login feito");
+    return { ok: true as const };
   });
+
+export const logoutAdminFn = createServerFn({ method: "POST" }).handler(async () => {
+  endSession();
+  return { ok: true };
+});
+
+export const getAdminSessionFn = createServerFn({ method: "GET" }).handler(async () => {
+  return { authed: hasValidSession() };
+});

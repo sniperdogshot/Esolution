@@ -22,7 +22,15 @@ interface ChartsRow2Props {
 
 const COLORS = ["#071f19", "#166534", "#22c55e", "#86efac", "#dcfce7"];
 
-function Card({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+function Card({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
       <div className="mb-4">
@@ -34,10 +42,20 @@ function Card({ title, subtitle, children }: { title: string; subtitle?: string;
   );
 }
 
+// "2026-11-17" -> "17/11". Sem new Date(): ele leria a data como UTC e mostraria o dia anterior no Brasil.
+function formatDia(v: string): string {
+  const [, m, d] = String(v).split("-");
+  return d && m ? `${d}/${m}` : String(v);
+}
+
 export function ChartsRow2({ periodo, aumento }: ChartsRow2Props) {
+  const aumentoTotal = aumento.reduce((s, a) => s + a.count, 0);
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card title="Leads nos Últimos 30 Dias" subtitle="Evolução diária">
+      <Card
+        title="Novos leads por dia"
+        subtitle="Quantas pessoas chamaram no WhatsApp em cada dia (últimos 30 dias)"
+      >
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={periodo} margin={{ top: 10, right: 30, left: 10, bottom: 10 }}>
@@ -45,19 +63,24 @@ export function ChartsRow2({ periodo, aumento }: ChartsRow2Props) {
               <XAxis
                 dataKey="data"
                 tick={{ fill: "#6b7280", fontSize: 11 }}
-                tickFormatter={(v) => new Date(v).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })}
+                tickFormatter={formatDia}
               />
-              <YAxis tick={{ fill: "#6b7280", fontSize: 12 }} />
+              <YAxis allowDecimals={false} tick={{ fill: "#6b7280", fontSize: 12 }} />
               <Tooltip
-                contentStyle={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "8px" }}
+                contentStyle={{
+                  backgroundColor: "white",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "8px",
+                }}
                 formatter={(value: number) => [value, "leads"]}
+                labelFormatter={formatDia}
               />
               <Line
-                type="monotone"
+                type="linear"
                 dataKey="count"
                 stroke="#071f19"
                 strokeWidth={2}
-                dot={{ r: 4, fill: "#071f19", strokeWidth: 2 }}
+                dot={{ r: 2, fill: "#071f19" }}
                 activeDot={{ r: 6, fill: "#22c55e" }}
               />
             </LineChart>
@@ -65,38 +88,53 @@ export function ChartsRow2({ periodo, aumento }: ChartsRow2Props) {
         </div>
       </Card>
 
-      <Card title="Intenção de Aumentar Consumo" subtitle="Respostas à pergunta de aumento">
-        <div className="h-72 flex items-center justify-center">
-          <ResponsiveContainer width="80%" height="80%">
-            <PieChart>
-              <Pie
-                data={aumento.length > 0 ? aumento : [{ aumento: "Sem dados", count: 1 }]}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={100}
-                paddingAngle={2}
-                dataKey="count"
-                nameKey="aumento"
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                labelLine={false}
-              >
-                {aumento.map((_, i) => (
-                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip
-                contentStyle={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "8px" }}
-                formatter={(value: number) => [value, "leads"]}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
+      <Card
+        title="Vão aumentar o consumo de energia?"
+        subtitle="Quem vai aumentar precisa de um sistema maior"
+      >
+        {aumentoTotal === 0 ? (
+          <div className="h-72 flex items-center justify-center text-sm text-gray-400">
+            Sem respostas ainda.
+          </div>
+        ) : (
+          <div className="h-72 flex items-center justify-center">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={aumento}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={100}
+                  paddingAngle={aumento.length > 1 ? 2 : 0}
+                  stroke="none"
+                  dataKey="count"
+                  nameKey="aumento"
+                >
+                  {aumento.map((_, i) => (
+                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "white",
+                    border: "1px solid #e5e7eb",
+                    borderRadius: "8px",
+                  }}
+                  formatter={(value: number) => [value, "leads"]}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        )}
         <div className="flex flex-wrap gap-4 mt-4 text-sm text-gray-600 justify-center">
           {aumento.map((a, i) => (
             <span key={a.aumento} className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
-              {a.aumento}: {a.count}
+              <span
+                className="w-3 h-3 rounded"
+                style={{ backgroundColor: COLORS[i % COLORS.length] }}
+              />
+              {a.aumento}: {a.count} ({Math.round((a.count / aumentoTotal) * 100)}%)
             </span>
           ))}
         </div>

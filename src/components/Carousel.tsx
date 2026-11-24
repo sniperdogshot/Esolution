@@ -61,8 +61,11 @@ export function Carousel({ images, fit = "cover", label }: Props) {
       className="relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onFocusIn={handleFocusIn}
-      onFocusOut={handleFocusOut}
+      onFocus={handleFocusIn}
+      onBlur={(e) => {
+        // Só retoma quando o foco sai do carrossel inteiro, não ao passar entre os botões dele.
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) handleFocusOut();
+      }}
     >
       <div
         className={`relative overflow-hidden rounded-2xl ${fit === "contain" ? "bg-surface-2" : ""} aspect-[4/3]`}

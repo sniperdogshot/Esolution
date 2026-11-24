@@ -7,7 +7,15 @@ interface PeriodCardsProps {
   leads30dias: number;
 }
 
-function Card({ title, subtitle, children }: { title: string; subtitle?: string; children: React.ReactNode }) {
+function Card({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
       <div className="mb-4">
@@ -19,13 +27,15 @@ function Card({ title, subtitle, children }: { title: string; subtitle?: string;
   );
 }
 
+const plural = (n: number) => `${n} ${n === 1 ? "lead novo" : "leads novos"}`;
+
 export function PeriodCards({ leads7dias, leads30dias }: PeriodCardsProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card title="Leads - Últimos 7 dias" subtitle={`${leads7dias} leads`}>
+      <Card title="Novos leads na última semana" subtitle={plural(leads7dias)}>
         <div className="text-4xl font-bold text-green-600">{leads7dias}</div>
       </Card>
-      <Card title="Leads - Últimos 30 dias" subtitle={`${leads30dias} leads`}>
+      <Card title="Novos leads no último mês" subtitle={plural(leads30dias)}>
         <div className="text-4xl font-bold text-blue-600">{leads30dias}</div>
       </Card>
     </div>

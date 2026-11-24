@@ -16,6 +16,7 @@ import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as AdminConversaoRouteImport } from './routes/admin.conversao'
 import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 import { Route as AdminMetricasRouteImport } from './routes/admin.metricas'
+import { Route as AdminPropostasRouteImport } from './routes/admin.propostas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const AdminMetricasRoute = AdminMetricasRouteImport.update({
   path: '/metricas',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPropostasRoute = AdminPropostasRouteImport.update({
+  id: '/propostas',
+  path: '/propostas',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/admin/conversao': typeof AdminConversaoRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/metricas': typeof AdminMetricasRoute
+  '/admin/propostas': typeof AdminPropostasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/admin/conversao': typeof AdminConversaoRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/metricas': typeof AdminMetricasRoute
+  '/admin/propostas': typeof AdminPropostasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/admin/conversao': typeof AdminConversaoRoute
   '/admin/leads': typeof AdminLeadsRoute
   '/admin/metricas': typeof AdminMetricasRoute
+  '/admin/propostas': typeof AdminPropostasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/admin/conversao'
     | '/admin/leads'
     | '/admin/metricas'
+    | '/admin/propostas'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/admin/conversao'
     | '/admin/leads'
     | '/admin/metricas'
+    | '/admin/propostas'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/admin/conversao'
     | '/admin/leads'
     | '/admin/metricas'
+    | '/admin/propostas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -169,6 +181,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMetricasRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/propostas': {
+      id: '/admin/propostas'
+      path: '/propostas'
+      fullPath: '/admin/propostas'
+      preLoaderRoute: typeof AdminPropostasRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
@@ -176,12 +195,14 @@ interface AdminRouteChildren {
   AdminConversaoRoute: typeof AdminConversaoRoute
   AdminLeadsRoute: typeof AdminLeadsRoute
   AdminMetricasRoute: typeof AdminMetricasRoute
+  AdminPropostasRoute: typeof AdminPropostasRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminConversaoRoute: AdminConversaoRoute,
   AdminLeadsRoute: AdminLeadsRoute,
   AdminMetricasRoute: AdminMetricasRoute,
+  AdminPropostasRoute: AdminPropostasRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)

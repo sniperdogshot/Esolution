@@ -239,3 +239,23 @@
 @utility ken-burns {
   animation: ken-burns 14s var(--ease-out) both;
 }
+
+/* Impressão da proposta comercial (/admin/propostas): só as folhas A4, sem margens do navegador */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  html,
+  body {
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .proposta-pagina {
+    break-after: page;
+  }
+  .proposta-pagina:last-child {
+    break-after: auto;
+  }
+}

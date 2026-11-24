@@ -45,7 +45,7 @@ export async function loadTracking() {
     if (fbq.callMethod) {
       fbq.callMethod(...args);
     } else {
-      fbq.queue.push(args);
+      fbq.queue?.push(args);
     }
   } as FbqFn & {
     callMethod?: FbqFn;

@@ -1,26 +1,23 @@
 import { createServerFn } from "@tanstack/react-start";
+
+import { requireAdmin } from "./admin-auth";
 import {
-  getMetricasGerais,
-  getLeadsPorEtapa,
-  getLeadsPorCidade,
-  getLeadsPorPeriodo,
   getLeadsAumentoConsumo,
+  getLeadsPorCidade,
+  getLeadsPorEtapa,
+  getLeadsPorPeriodo,
   getLeadsRecentes,
+  getMetricasGerais,
+  isUsingMock,
 } from "./admin-db";
 import type {
-  MetricasGerais,
-  LeadsPorEtapa,
-  LeadsPorCidade,
-  LeadsPorPeriodo,
+  LeadRecente,
   LeadsAumentoConsumo,
+  LeadsPorCidade,
+  LeadsPorEtapa,
+  LeadsPorPeriodo,
+  MetricasGerais,
 } from "./admin-db";
-
-// DEBUG: Log when this module loads
-console.log("[admin-server.ts] Module loaded, registering server functions");
-
-// ============================================
-// TIPOS COMBINADOS
-// ============================================
 
 export interface DashboardData {
   metricas: MetricasGerais;
@@ -28,29 +25,17 @@ export interface DashboardData {
   leadsPorCidade: LeadsPorCidade[];
   leadsPorPeriodo: LeadsPorPeriodo[];
   leadsAumento: LeadsAumentoConsumo[];
-  leadsRecentes: Awaited<ReturnType<typeof getLeadsRecentes>>;
+  leadsRecentes: LeadRecente[];
+  /** true quando os números são de exemplo (sem banco configurado em desenvolvimento). */
+  mock: boolean;
 }
 
-// ============================================
-// SERVER FUNCTION ÚNICA - BUSCA TUDO DE UMA VEZ
-// ============================================
-
+/** Tudo que o painel de métricas precisa, numa chamada só. Exige sessão de admin. */
 export const getDashboardDataFn = createServerFn({ method: "GET" })
-  .validator(() => {
-    console.log("[getDashboardDataFn] Validator called");
-  })
+  .middleware([requireAdmin])
   .handler(async (): Promise<DashboardData> => {
-    console.log("[getDashboardDataFn] Handler called");
-    try {
-      // Executa todas as queries em paralelo no servidor (uma única conexão)
-      const [
-        metricas,
-        leadsPorEtapa,
-        leadsPorCidade,
-        leadsPorPeriodo,
-        leadsAumento,
-        leadsRecentes,
-      ] = await Promise.all([
+    const [metricas, leadsPorEtapa, leadsPorCidade, leadsPorPeriodo, leadsAumento, leadsRecentes] =
+      await Promise.all([
         getMetricasGerais(),
         getLeadsPorEtapa(),
         getLeadsPorCidade(10),
@@ -58,71 +43,20 @@ export const getDashboardDataFn = createServerFn({ method: "GET" })
         getLeadsAumentoConsumo(),
         getLeadsRecentes(20),
       ]);
-
-      const result = {
-        metricas,
-        leadsPorEtapa,
-        leadsPorCidade,
-        leadsPorPeriodo,
-        leadsAumento,
-        leadsRecentes,
-      };
-      console.log("[getDashboardDataFn] Success:", {
-        totalLeads: metricas.totalLeads,
-        etapaCount: leadsPorEtapa.length,
-        cidadeCount: leadsPorCidade.length
-      });
-      return result;
-    } catch (err) {
-      console.error("[getDashboardDataFn] ERROR:", err);
-      throw err;
-    }
+    return {
+      metricas,
+      leadsPorEtapa,
+      leadsPorCidade,
+      leadsPorPeriodo,
+      leadsAumento,
+      leadsRecentes,
+      mock: isUsingMock(),
+    };
   });
 
-// ============================================
-// FUNÇÕES INDIVIDUAIS (mantidas para compatibilidade)
-// ============================================
-
-export const getMetricasGeraisFn = createServerFn({ method: "GET" })
-  .validator(() => {})
-  .handler(async (): Promise<MetricasGerais> => {
-    return getMetricasGerais();
-  });
-
-export const getLeadsPorEtapaFn = createServerFn({ method: "GET" })
-  .validator(() => {})
-  .handler(async (): Promise<LeadsPorEtapa[]> => {
-    return getLeadsPorEtapa();
-  });
-
-export const getLeadsPorCidadeFn = createServerFn({ method: "GET" })
-  .validator(() => {})
-  .handler(async (): Promise<LeadsPorCidade[]> => {
-    return getLeadsPorCidade();
-  });
-
-export const getLeadsPorPeriodoFn = createServerFn({ method: "GET" })
-  .validator(() => {})
-  .handler(async (): Promise<LeadsPorPeriodo[]> => {
-    return getLeadsPorPeriodo(30);
-  });
-
-export const getLeadsAumentoConsumoFn = createServerFn({ method: "GET" })
-  .validator(() => {})
-  .handler(async (): Promise<LeadsAumentoConsumo[]> => {
-    return getLeadsAumentoConsumo();
-  });
-
+/** Lista de leads para a página de Leads. Exige sessão de admin. */
 export const getLeadsRecentesFn = createServerFn({ method: "GET" })
-  .validator(() => {})
+  .middleware([requireAdmin])
   .handler(async () => {
-    return getLeadsRecentes(20);
-  });
-
-// TEST ENDPOINT - para debug
-export const testServerFn = createServerFn({ method: "GET" })
-  .validator(() => {})
-  .handler(async () => {
-    console.log("[testServerFn] Handler called");
-    return { ok: true, message: "Server function working!", timestamp: new Date().toISOString() };
+    return { leads: await getLeadsRecentes(2000), mock: isUsingMock() };
   });

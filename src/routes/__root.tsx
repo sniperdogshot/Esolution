@@ -108,6 +108,8 @@ function RootComponent() {
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement)?.closest?.("a");
       if (!a) return;
+      // Cliques da equipe no painel não são conversões do site.
+      if (window.location.pathname.startsWith("/admin")) return;
       const href = a.getAttribute("href") || "";
       if (href.includes("wa.me/")) trackWhatsApp();
       else if (href.startsWith("mailto:")) trackEmail();
@@ -118,7 +120,19 @@ function RootComponent() {
 
   // Register Service Worker
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
+    if (!("serviceWorker" in navigator)) return;
+    if (import.meta.env.DEV) {
+      // Em desenvolvimento o cache do service worker serve arquivos velhos do Vite.
+      // Remove qualquer um que já esteja instalado e limpa os caches dele.
+      void navigator.serviceWorker
+        .getRegistrations()
+        .then((regs) => Promise.all(regs.map((r) => r.unregister())));
+      if ("caches" in window) {
+        void caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k))));
+      }
+      return;
+    }
+    {
       navigator.serviceWorker
         .register("/sw.js", { scope: "/" })
         .then((registration) => {

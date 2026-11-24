@@ -1,9 +1,10 @@
 // Service Worker for Esolution Engenharia
 // Cache-first for static assets, network-first for HTML/navigation
 
-const CACHE_NAME = "esolution-v1";
-const STATIC_CACHE_NAME = "esolution-static-v1";
-const HTML_CACHE_NAME = "esolution-html-v1";
+// Trocar a versão apaga os caches antigos no "activate".
+// v2: deixa de guardar respostas do admin e das server functions (dados de leads).
+const STATIC_CACHE_NAME = "esolution-static-v2";
+const HTML_CACHE_NAME = "esolution-html-v2";
 
 // Assets to cache immediately on install
 const PRECACHE_ASSETS = [
@@ -52,6 +53,15 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Admin, login e server functions: sempre rede, nunca cache (dados privados e sessão).
+  if (
+    url.pathname.startsWith("/admin") ||
+    url.pathname.startsWith("/_serverFn") ||
+    url.pathname.startsWith("/api/")
+  ) {
+    return;
+  }
+
   // HTML/Navigation requests - Network First
   if (request.mode === "navigate" || request.headers.get("accept")?.includes("text/html")) {
     event.respondWith(networkFirst(request, HTML_CACHE_NAME));
@@ -61,12 +71,6 @@ self.addEventListener("fetch", (event) => {
   // Static assets - Cache First
   if (isStaticAsset(url.pathname)) {
     event.respondWith(cacheFirst(request, STATIC_CACHE_NAME));
-    return;
-  }
-
-  // API requests - Network Only (no caching)
-  if (url.pathname.startsWith("/api/")) {
-    event.respondWith(networkOnly(request));
     return;
   }
 
@@ -104,7 +108,8 @@ async function networkFirst(request, cacheName) {
 
   try {
     const networkResponse = await fetch(request);
-    if (networkResponse.ok) {
+    // Só guarda respostas comuns do próprio site (nada com cookie de sessão ou redirect).
+    if (networkResponse.ok && networkResponse.type === "basic" && !networkResponse.redirected) {
       cache.put(request, networkResponse.clone());
     }
     return networkResponse;
@@ -118,18 +123,6 @@ async function networkFirst(request, cacheName) {
       return caches.match("/");
     }
     throw error;
-  }
-}
-
-// Network Only - for API requests
-async function networkOnly(request) {
-  try {
-    return await fetch(request);
-  } catch (error) {
-    return new Response(JSON.stringify({ error: "Offline" }), {
-      status: 503,
-      headers: { "Content-Type": "application/json" },
-    });
   }
 }
 

@@ -32,3 +32,6 @@ dist-ssr
 *.sln
 *.sw?
 .netlify/
+
+# PDFs de propostas/clientes soltos na raiz (dados pessoais)
+/*.pdf

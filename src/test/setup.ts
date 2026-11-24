@@ -36,3 +36,21 @@ Object.defineProperty(window, "IntersectionObserver", {
   writable: true,
   value: IntersectionObserverMock,
 });
+
+// Node 22+ define um `localStorage` global próprio, que sem --localstorage-file fica vazio e
+// esconde o do jsdom. Nesse caso, usa um Storage em memória.
+if (typeof globalThis.localStorage?.clear !== "function") {
+  const store = new Map<string, string>();
+  const memoryStorage: Storage = {
+    get length() {
+      return store.size;
+    },
+    clear: () => store.clear(),
+    getItem: (k) => store.get(k) ?? null,
+    key: (i) => [...store.keys()][i] ?? null,
+    removeItem: (k) => void store.delete(k),
+    setItem: (k, v) => void store.set(k, String(v)),
+  };
+  Object.defineProperty(globalThis, "localStorage", { configurable: true, value: memoryStorage });
+  Object.defineProperty(window, "localStorage", { configurable: true, value: memoryStorage });
+}

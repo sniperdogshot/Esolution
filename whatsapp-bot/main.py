@@ -119,9 +119,15 @@ def atendimento_expirou(atendimento: Atendimento):
     if not atendimento.atualizado_em:
         return False
 
+    atualizado = atendimento.atualizado_em
+
+    # A coluna pode vir com ou sem fuso, conforme quem criou a tabela; compara sempre em UTC
+    if atualizado.tzinfo is not None:
+        atualizado = atualizado.astimezone(timezone.utc).replace(tzinfo=None)
+
     agora = datetime.now(timezone.utc).replace(tzinfo=None)
 
-    return agora - atendimento.atualizado_em > timedelta(days=DIAS_PARA_REINICIAR)
+    return agora - atualizado > timedelta(days=DIAS_PARA_REINICIAR)
 
 
 def processar_mensagem(
